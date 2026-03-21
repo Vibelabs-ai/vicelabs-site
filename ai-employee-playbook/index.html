@@ -46,11 +46,33 @@
       border-bottom: 1px solid var(--border);
     }
 
-    .logo {
-      font-weight: 700;
-      font-size: 1.1rem;
-      color: var(--text);
+    header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    .logo:hover { opacity: 0.85; }
+
+    .nav-cta {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.875rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark); }
 
     /* Hero */
     .hero {
@@ -329,7 +351,8 @@
 
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: minmax(320px, 420px);
+      justify-content: center;
       gap: 24px;
       max-width: 750px;
       margin: 0 auto;
@@ -570,7 +593,8 @@
 
   <header>
     <div class="container">
-      <div class="logo">Vice LLC</div>
+      <a href="/" class="logo">Vice <span>Labs</span> AI</a>
+      <a href="#pricing" class="nav-cta">Get the Playbook</a>
     </div>
   </header>
 
@@ -579,7 +603,7 @@
       <span class="badge">🤖 The Future of Work</span>
       <h1>Build Your <span class="gradient-text">AI Workforce</span></h1>
       <p>The complete playbook for adding AI employees to your team. Scale operations, handle the mundane, and grow without proportional headcount.</p>
-      <a href="#pricing" class="cta-button">Get the Playbook — $197</a>
+      <a href="#pricing" class="cta-button">Get the Playbook — $39</a>
       <p class="hero-note">Instant download • Templates included • 30-day guarantee</p>
     </div>
   </section>
@@ -617,7 +641,7 @@
           <span class="check">✓</span>
           <div>
             <h4>The Complete Framework</h4>
-            <p>13 chapters covering everything from initial setup to multi-agent operations at scale.</p>
+            <p>12 chapters covering everything from initial setup to multi-agent operations at scale.</p>
           </div>
         </div>
         <div class="get-item">
@@ -634,13 +658,7 @@
             <p>Battle-tested prompts for customer support, sales, content, research, and back-office operations.</p>
           </div>
         </div>
-        <div class="get-item">
-          <span class="check">✓</span>
-          <div>
-            <h4>Real Case Study</h4>
-            <p>Follow Vice LLC's build log — real numbers, real decisions, real lessons from building this in public.</p>
-          </div>
-        </div>
+
         <div class="get-item">
           <span class="check">✓</span>
           <div>
@@ -711,10 +729,7 @@
           <span class="chapter-num">12</span>
           <span>Human-AI Hybrid Models</span>
         </div>
-        <div class="chapter-item">
-          <span class="chapter-num">13</span>
-          <span>Case Study: Vice LLC Build Log</span>
-        </div>
+
       </div>
     </div>
   </section>
@@ -749,38 +764,23 @@
 
   <section class="pricing" id="pricing">
     <div class="container">
-      <h2>Choose Your Package</h2>
+      <h2>Get the Playbook</h2>
       <p>One-time purchase. Lifetime access. Free updates.</p>
       
       <div class="pricing-grid">
-        <div class="price-card">
+        <div class="price-card featured">
           <h3>Essentials</h3>
-          <div class="price">$197</div>
+          <div class="price">$39</div>
           <p class="price-note">One-time payment</p>
           <ul>
-            <li>Complete 13-chapter playbook (PDF)</li>
+            <li>Complete 12-chapter playbook (PDF)</li>
             <li>All configuration templates</li>
             <li>50+ prompt library</li>
             <li>Cost calculator spreadsheet</li>
             <li>Troubleshooting guide</li>
             <li>Free updates for life</li>
           </ul>
-          <a href="#" class="buy-button">Get Essentials</a>
-        </div>
-        
-        <div class="price-card featured">
-          <h3>Complete</h3>
-          <div class="price">$297</div>
-          <p class="price-note">One-time payment</p>
-          <ul>
-            <li>Everything in Essentials</li>
-            <li>Video walkthrough (2+ hours)</li>
-            <li>Private community access</li>
-            <li>Monthly Vice LLC build log updates</li>
-            <li>1-on-1 async setup review</li>
-            <li>Priority support</li>
-          </ul>
-          <a href="#" class="buy-button">Get Complete</a>
+          <a href="#" class="buy-button">Get the Playbook — $39</a>
         </div>
       </div>
     </div>
@@ -820,10 +820,7 @@
           <h4>What if I already use ChatGPT or Claude?</h4>
           <p>Using AI occasionally is different from deploying AI employees. This playbook shows you how to go from "I use AI sometimes" to "AI handles my operations around the clock."</p>
         </div>
-        <div class="faq-item">
-          <h4>What's in the Complete package that's not in Essentials?</h4>
-          <p>Video walkthroughs, private community access, monthly build log updates from Vice LLC, and a 1-on-1 async review of your setup. Worth it if you want hands-on guidance.</p>
-        </div>
+
       </div>
     </div>
   </section>

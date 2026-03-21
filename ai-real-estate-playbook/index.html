@@ -4,25 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The AI Real Estate Playbook — Build a High-Volume Business Without Adding Headcount</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --black: #0a0a0a;
-      --white: #ffffff;
-      --gray-100: #f5f5f5;
-      --gray-200: #e8e8e8;
-      --gray-500: #737373;
-      --gray-700: #404040;
-      --accent: #c8a96e;
-      --accent-dark: #a8883a;
-      --red: #dc2626;
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #0a0a0b;
+      --bg-card: #131316;
+      --bg-card-hover: #1a1a1f;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --accent: #22c55e;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: var(--black);
-      color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       line-height: 1.6;
     }
 
@@ -32,20 +35,22 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid var(--border);
     }
-    .nav-logo { font-weight: 700; font-size: 1rem; letter-spacing: 0.05em; color: var(--accent); }
+    .nav-logo { font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--primary); }
+    .nav-logo:hover { opacity: 0.85; }
     .nav-cta {
-      background: var(--accent);
-      color: var(--black);
+      background: var(--primary);
+      color: #fff;
       padding: 0.5rem 1.25rem;
-      border-radius: 4px;
+      border-radius: 6px;
       font-weight: 700;
       font-size: 0.875rem;
       text-decoration: none;
       transition: background 0.2s;
     }
-    .nav-cta:hover { background: var(--accent-dark); }
+    .nav-cta:hover { background: var(--primary-dark); }
 
     /* HERO */
     .hero {
@@ -59,7 +64,7 @@
       font-weight: 700;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--primary);
       margin-bottom: 1.5rem;
     }
     .hero h1 {
@@ -68,7 +73,7 @@
       line-height: 1.15;
       margin-bottom: 1.5rem;
     }
-    .hero h1 span { color: var(--accent); }
+    .hero h1 span { color: var(--primary); }
     .hero-sub {
       font-size: 1.2rem;
       color: rgba(255,255,255,0.7);
@@ -77,8 +82,8 @@
     }
     .hero-cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .btn-primary {
-      background: var(--accent);
-      color: var(--black);
+      background: var(--primary);
+      color: #fff;
       padding: 0.9rem 2rem;
       border-radius: 6px;
       font-weight: 800;
@@ -87,7 +92,7 @@
       transition: background 0.2s;
       display: inline-block;
     }
-    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:hover { background: var(--primary-dark); }
     .btn-ghost {
       border: 1px solid rgba(255,255,255,0.25);
       color: var(--white);
@@ -102,9 +107,9 @@
     .price-note {
       margin-top: 1rem;
       font-size: 0.875rem;
-      color: var(--gray-500);
+      color: var(--text-muted);
     }
-    .price-note strong { color: var(--white); }
+    .price-note strong { color: var(--text); }
 
     /* SOCIAL PROOF BAR */
     .proof-bar {
@@ -125,7 +130,7 @@
       font-weight: 700;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--primary);
       margin-bottom: 1rem;
     }
     h2 {
@@ -177,7 +182,7 @@
     .chapter-num {
       font-size: 0.75rem;
       font-weight: 800;
-      color: var(--accent);
+      color: var(--primary);
       min-width: 28px;
       padding-top: 0.1rem;
     }
@@ -185,7 +190,7 @@
     .chapter-item p { font-size: 0.825rem; color: rgba(255,255,255,0.55); }
 
     /* ROI CALC */
-    .roi-section { background: rgba(200, 169, 110, 0.05); border-top: 1px solid rgba(200,169,110,0.15); border-bottom: 1px solid rgba(200,169,110,0.15); }
+    .roi-section { background: rgba(99, 102, 241, 0.05); border-top: 1px solid rgba(99,102,241,0.15); border-bottom: 1px solid rgba(99,102,241,0.15); }
     .roi-table { width: 100%; border-collapse: collapse; margin-top: 2rem; }
     .roi-table th, .roi-table td {
       text-align: left;
@@ -193,10 +198,10 @@
       border-bottom: 1px solid rgba(255,255,255,0.07);
       font-size: 0.9rem;
     }
-    .roi-table th { color: var(--accent); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
+    .roi-table th { color: var(--primary); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
     .roi-table .savings { color: #4ade80; font-weight: 700; }
-    .roi-total { padding: 1.25rem 1rem; background: rgba(200,169,110,0.1); border-radius: 6px; margin-top: 1rem; }
-    .roi-total strong { color: var(--accent); font-size: 1.1rem; }
+    .roi-total { padding: 1.25rem 1rem; background: rgba(99,102,241,0.1); border-radius: 6px; margin-top: 1rem; }
+    .roi-total strong { color: var(--primary); font-size: 1.1rem; }
 
     /* WHAT'S INCLUDED */
     .includes-grid {
@@ -220,7 +225,8 @@
     .pricing-section { background: rgba(255,255,255,0.02); }
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: minmax(300px, 420px);
+      justify-content: center;
       gap: 1.5rem;
       margin-top: 2.5rem;
       max-width: 720px;
@@ -231,8 +237,8 @@
       padding: 2rem;
     }
     .pricing-card.featured {
-      border-color: var(--accent);
-      background: rgba(200,169,110,0.05);
+      border-color: var(--primary);
+      background: rgba(99,102,241,0.05);
       position: relative;
     }
     .featured-badge {
@@ -240,8 +246,8 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--accent);
-      color: var(--black);
+      background: var(--primary);
+      color: #fff;
       font-size: 0.7rem;
       font-weight: 800;
       letter-spacing: 0.08em;
@@ -251,7 +257,7 @@
     }
     .pricing-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
     .pricing-price { font-size: 2.5rem; font-weight: 800; margin: 1rem 0; }
-    .pricing-price span { font-size: 1rem; color: var(--gray-500); }
+
     .pricing-features { list-style: none; margin: 1.5rem 0; }
     .pricing-features li {
       padding: 0.4rem 0;
@@ -261,6 +267,7 @@
       gap: 0.5rem;
     }
     .pricing-features li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+    .pricing-price span { font-size: 1rem; color: var(--text-muted); }
     .btn-full { display: block; text-align: center; width: 100%; }
 
     /* FAQ */
@@ -278,14 +285,14 @@
       text-align: center;
       border-top: 1px solid rgba(255,255,255,0.07);
       font-size: 0.825rem;
-      color: var(--gray-500);
+      color: var(--text-muted);
     }
 
     /* FINAL CTA */
     .final-cta {
       text-align: center;
       padding: 6rem 2rem;
-      background: radial-gradient(ellipse at center, rgba(200,169,110,0.08) 0%, transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(99,102,241,0.08) 0%, transparent 70%);
     }
     .final-cta h2 { margin-bottom: 1rem; }
     .final-cta p { color: rgba(255,255,255,0.65); margin-bottom: 2rem; font-size: 1.1rem; }
@@ -295,7 +302,7 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">VICE LLC</div>
+  <a href="/" class="nav-logo">Vice <span>Labs</span> AI</a>
   <a href="#pricing" class="nav-cta">Get the Playbook</a>
 </nav>
 
@@ -309,7 +316,7 @@
     that actually closes deals.
   </p>
   <div class="hero-cta-group">
-    <a href="#pricing" class="btn-primary">Get Instant Access — $197</a>
+    <a href="#pricing" class="btn-primary">Get Instant Access — $39</a>
     <a href="#whats-inside" class="btn-ghost">See What's Inside</a>
   </div>
   <p class="price-note">PDF + Templates + 75 Prompts. <strong>Instant download.</strong> No subscription.</p>
@@ -317,7 +324,7 @@
 
 <!-- PROOF BAR -->
 <div class="proof-bar">
-  14 chapters · 5 appendices · 75+ real estate-specific prompts · 6 workflow templates · Investment analysis calculator
+  13 chapters · 5 appendices · 75+ real estate-specific prompts · 6 workflow templates · Investment analysis calculator
 </div>
 
 <!-- PAIN SECTION -->
@@ -358,7 +365,7 @@
 <section id="whats-inside">
   <div class="section-inner">
     <p class="section-eyebrow">What's Inside</p>
-    <h2>14 Chapters of Systems,<br>Not Theory</h2>
+    <h2>13 Chapters of Systems,<br>Not Theory</h2>
     <p class="section-sub">Every chapter includes specific prompts, templates, and workflows you can use immediately — not just concepts.</p>
     <div class="chapters-grid">
       <div class="chapter-item">
@@ -452,13 +459,7 @@
           <p>When to hire vs. automate. Building AI roles before human roles. The leverage equation.</p>
         </div>
       </div>
-      <div class="chapter-item">
-        <span class="chapter-num">14</span>
-        <div>
-          <h4>Case Study: Building in Public</h4>
-          <p>Real numbers, real costs, real results from Vice LLC's first 90 days. Updated quarterly.</p>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -525,7 +526,7 @@
       <div class="include-card">
         <div class="include-icon">📖</div>
         <h4>The Full Playbook</h4>
-        <p>14 chapters of systems, workflows, and frameworks. PDF download, read anywhere.</p>
+        <p>13 chapters of systems, workflows, and frameworks. PDF download, read anywhere.</p>
       </div>
       <div class="include-card">
         <div class="include-icon">💬</div>
@@ -563,33 +564,19 @@
     <h2>Get the Playbook</h2>
     <p class="section-sub">One-time payment. Instant download. No subscription.</p>
     <div class="pricing-grid">
-      <div class="pricing-card">
+      <div class="pricing-card featured">
         <h3>Standard</h3>
-        <div class="pricing-price">$197 <span>one-time</span></div>
+        <div class="pricing-price">$39 <span>one-time</span></div>
         <ul class="pricing-features">
-          <li>Full 14-chapter playbook (PDF)</li>
+          <li>Full 13-chapter playbook (PDF)</li>
           <li>75+ prompt library</li>
           <li>6 workflow templates</li>
           <li>CRM automation scripts</li>
           <li>Investment analysis calculator</li>
           <li>Tool stack guide</li>
-          <li>Quarterly case study updates</li>
+          <li>Free updates for life</li>
         </ul>
-        <a href="#" class="btn-primary btn-full">Get Standard — $197</a>
-      </div>
-      <div class="pricing-card featured">
-        <div class="featured-badge">Most Popular</div>
-        <h3>Full Access</h3>
-        <div class="pricing-price">$297 <span>one-time</span></div>
-        <ul class="pricing-features">
-          <li>Everything in Standard</li>
-          <li>Video walkthrough: full AI setup</li>
-          <li>100+ done-for-you prompt pack</li>
-          <li>Monthly deal analysis (real market data)</li>
-          <li>Private community access</li>
-          <li>Priority updates as playbook evolves</li>
-        </ul>
-        <a href="#" class="btn-primary btn-full">Get Full Access — $297</a>
+        <a href="#" class="btn-primary btn-full">Get the Playbook — $39</a>
       </div>
     </div>
   </div>
@@ -623,7 +610,7 @@
       </div>
       <div class="faq-item">
         <h4>Will this be updated as AI tools change?</h4>
-        <p>Yes. The case study chapter is updated quarterly with real numbers from Vice LLC. Significant tool or strategy updates will be pushed to buyers who purchased the Full Access tier.</p>
+        <p>Yes. Significant tool or strategy updates will be pushed to all buyers as free updates.</p>
       </div>
     </div>
   </div>
@@ -636,14 +623,14 @@
     <h2>Stop Managing Tasks.<br>Start Closing Deals.</h2>
     <p>The agents using AI effectively right now are not smarter. They just built better systems. This is the playbook.</p>
     <a href="#pricing" class="btn-primary">Get Instant Access</a>
-    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--gray-500);">30-day money-back guarantee. Instant download.</p>
+    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">30-day money-back guarantee. Instant download.</p>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2026 Vice LLC · <a href="#" style="color: var(--gray-500);">Privacy Policy</a> · <a href="#" style="color: var(--gray-500);">Terms</a></p>
-  <p style="margin-top: 0.5rem;">Questions? Email us at hello@vicelabs.co</p>
+  <p>© 2026 Vice Labs AI. All rights reserved. · <a href="#" style="color: var(--text-muted);">Privacy Policy</a> · <a href="#" style="color: var(--text-muted);">Terms</a></p>
+  <p style="margin-top: 0.5rem;">Questions? Email us at hello@vicelabs.ai</p>
 </footer>
 
 </body>
