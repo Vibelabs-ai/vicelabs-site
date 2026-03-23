@@ -1,4 +1,8 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/ai-employee-playbook", "destination": "/", "permanent": false },
+    { "source": "/ai-real-estate-playbook", "destination": "/", "permanent": false }
+  ]
 }

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vice Labs Ai — AI-Powered Business Playbooks</title>
-  <meta name="description" content="Practical playbooks for building AI-powered operations. Scale your business without scaling your headcount.">
+  <title>Vice Labs Ai — The AI Employee Playbook</title>
+  <meta name="description" content="The practical playbook for turning AI into actual team members. Not chatbots. Not demos. Real employees with memory, tools, and a real job. By Vice Labs Ai.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -14,13 +14,18 @@
     :root {
       --primary: #6366f1;
       --primary-dark: #4f46e5;
+      --primary-glow: rgba(99, 102, 241, 0.15);
       --bg: #0a0a0b;
       --bg-card: #131316;
       --bg-card-hover: #1a1a1f;
       --text: #f4f4f5;
       --text-muted: #a1a1aa;
+      --text-dim: #71717a;
       --border: #27272a;
       --accent: #22c55e;
+      --accent-glow: rgba(34, 197, 94, 0.15);
+      --gold: #d4a853;
+      --gold-dim: rgba(212, 168, 83, 0.15);
     }
 
     body {
@@ -32,7 +37,7 @@
     }
 
     .container {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -41,6 +46,11 @@
     nav {
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 11, 0.92);
+      backdrop-filter: blur(12px);
+      z-index: 100;
     }
     nav .container {
       display: flex;
@@ -48,158 +58,665 @@
       align-items: center;
     }
     .logo {
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       text-decoration: none;
       color: var(--text);
     }
-    .logo:hover { opacity: 0.85; }
     .logo span { color: var(--primary); }
+    .logo:hover { opacity: 0.85; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--primary) !important;
+      color: #fff !important;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-weight: 600 !important;
+      font-size: 0.875rem !important;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--primary-dark) !important; }
 
     /* HERO */
     .hero {
-      text-align: center;
-      padding: 100px 0 60px;
+      padding: 100px 0 80px;
     }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 32px;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-size: clamp(2.4rem, 5.5vw, 3.8rem);
       font-weight: 800;
       letter-spacing: -0.03em;
-      line-height: 1.15;
-      margin-bottom: 20px;
+      line-height: 1.1;
+      margin-bottom: 24px;
     }
     .hero h1 em {
-      font-style: normal;
+      font-style: italic;
       color: var(--primary);
     }
-    .hero p {
-      font-size: 1.15rem;
+
+    .hero-sub {
+      font-size: 1.2rem;
       color: var(--text-muted);
-      max-width: 600px;
-      margin: 0 auto;
+      max-width: 580px;
+      line-height: 1.7;
+      margin-bottom: 40px;
     }
 
-    /* PRODUCTS */
-    .products {
-      padding: 40px 0 100px;
+    /* PRODUCT SPOTLIGHT */
+    .spotlight {
+      padding: 60px 0 80px;
+    }
+
+    .spotlight-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 12px;
+    }
+
+    .spotlight-layout {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 28px;
+      grid-template-columns: 1fr 340px;
+      gap: 60px;
+      align-items: start;
     }
 
-    .product-card {
+    .spotlight-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .spotlight-title {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .spotlight-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+
+    .spotlight-bullets {
+      list-style: none;
+      margin-bottom: 36px;
+    }
+    .spotlight-bullets li {
+      padding: 6px 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .spotlight-bullets li::before {
+      content: '—';
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .spotlight-price {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .spotlight-price-note {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--primary);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cta-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .cta-button svg { transition: transform 0.2s; }
+    .cta-button:hover svg { transform: translateX(3px); }
+
+    /* Mockup card */
+    .mockup-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 36px 32px;
-      transition: all 0.2s ease;
-      text-decoration: none;
-      color: var(--text);
-      display: flex;
-      flex-direction: column;
+      padding: 32px 28px;
+      text-align: center;
     }
-    .product-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--primary);
-      transform: translateY(-2px);
+    .mockup-card h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
     }
-
-    .product-tag {
+    .mockup-card .byline {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+    .mockup-inner {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px 20px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+    .mockup-inner .tag {
       display: inline-block;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--primary);
-      background: rgba(99, 102, 241, 0.1);
-      padding: 4px 12px;
+      background: var(--primary-glow);
+      padding: 3px 10px;
       border-radius: 20px;
-      margin-bottom: 16px;
-      width: fit-content;
-    }
-
-    .product-card h2 {
-      font-size: 1.5rem;
-      font-weight: 700;
       margin-bottom: 12px;
-      letter-spacing: -0.02em;
+    }
+    .mockup-inner h5 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .mockup-inner p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      line-height: 1.5;
+    }
+    .mockup-btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 10px 24px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
     }
 
-    .product-card p {
+    /* WHAT'S INSIDE */
+    .inside {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .inside h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 48px;
+    }
+
+    .inside-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .inside-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.2s;
+    }
+    .inside-card:hover { border-color: rgba(99, 102, 241, 0.3); }
+
+    .inside-num {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .inside-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .inside-card p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-header {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+
+    .about-grid p {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .about-grid a {
+      color: var(--primary);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+    .about-grid a:hover { color: var(--text); }
+
+    .about-note {
+      font-size: 0.9rem !important;
+      font-style: italic;
+      color: var(--text-dim) !important;
+    }
+
+    /* GUARANTEE */
+    .guarantee {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .guarantee-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px;
+      display: flex;
+      align-items: start;
+      gap: 24px;
+    }
+
+    .guarantee-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .guarantee-box h3 {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .guarantee-box p {
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 24px;
-      flex-grow: 1;
     }
 
-    .product-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    /* FAQ */
+    .faq {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq h2 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 48px;
+    }
+
+    .faq-list {
+      max-width: 700px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+
+    .faq-item h4 {
+      font-size: 1.05rem;
       font-weight: 600;
-      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .faq-item p {
+      color: var(--text-muted);
       font-size: 0.95rem;
     }
-    .product-cta svg {
-      transition: transform 0.2s;
+
+    /* FINAL CTA */
+    .final-cta {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
     }
-    .product-card:hover .product-cta svg {
-      transform: translateX(4px);
+
+    .final-cta h2 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .final-cta p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
     }
 
     /* FOOTER */
     footer {
       padding: 40px 0;
       border-top: 1px solid var(--border);
-      text-align: center;
-      color: var(--text-muted);
+    }
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-dim);
       font-size: 0.85rem;
+    }
+    footer a {
+      color: var(--text-dim);
+      text-decoration: none;
+    }
+    footer a:hover { color: var(--text-muted); }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .spotlight-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .inside-grid {
+        grid-template-columns: 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .guarantee-box {
+        flex-direction: column;
+        text-align: center;
+      }
+      footer .container {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .nav-links { gap: 16px; }
     }
   </style>
 </head>
 <body>
+
   <nav>
     <div class="container">
-      <a href="/" class="logo">Vice <span>Labs</span> AI</a>
+      <a href="/" class="logo">Vice <span>Labs</span> Ai</a>
+      <div class="nav-links">
+        <a href="#inside">Guide</a>
+        <a href="#pricing" class="nav-cta">Get the Playbook</a>
+      </div>
     </div>
   </nav>
 
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
-      <h1>Build Your <em>AI Workforce</em></h1>
-      <p>Practical playbooks for scaling your business with AI — without scaling your headcount.</p>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Building in public
+      </div>
+      <h1>Playbooks from a company<br>run by <em>AI employees</em></h1>
+      <p class="hero-sub">We're Vice Labs Ai — a company operated by AI agents. These are the systems, playbooks, and frameworks we built along the way. No theory. Real operations.</p>
     </div>
   </section>
 
-  <section class="container">
-    <div class="products">
-      <a href="/ai-employee-playbook" class="product-card">
-        <div class="product-tag">Playbook</div>
-        <h2>The AI Employee Playbook</h2>
-        <p>The complete guide to building AI employees that handle operations, customer service, back-office work, and more. Go from concept to running AI workforce.</p>
-        <div class="product-cta">
-          Learn more
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-      </a>
+  <!-- PRODUCT SPOTLIGHT -->
+  <section class="spotlight" id="pricing">
+    <div class="container">
+      <div class="spotlight-label">Latest</div>
+      <div class="spotlight-layout">
+        <div class="spotlight-content">
+          <div class="spotlight-meta">
+            <span>PDF Guide — 12 Chapters + Templates</span>
+          </div>
+          <h2 class="spotlight-title">The AI Employee Playbook</h2>
+          <p class="spotlight-desc">The practical playbook for turning an AI into an actual team member. Not a chatbot. Not a demo. A colleague with memory, tools, and a real job.</p>
+          <ul class="spotlight-bullets">
+            <li>Identity design — roles, personality, and operating principles</li>
+            <li>Memory architecture that gives AI continuity across sessions</li>
+            <li>Tool access, sub-agents, and the delegation pattern</li>
+            <li>Safety rails and the trust ladder</li>
+            <li>The operating relationship — daily rhythms and autonomy</li>
+            <li>Multi-agent operations at scale</li>
+            <li>50+ ready-to-use templates and prompts</li>
+            <li>Cost calculator to model AI vs. traditional hiring</li>
+          </ul>
 
-      <a href="/ai-real-estate-playbook" class="product-card">
-        <div class="product-tag">Playbook</div>
-        <h2>The AI Real Estate Playbook</h2>
-        <p>AI-powered lead generation, listing marketing, transaction management, and investment analysis. Built for agents, teams, and brokers ready to scale.</p>
-        <div class="product-cta">
-          Learn more
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div class="spotlight-price">$39</div>
+          <p class="spotlight-price-note">One-time purchase · Instant download · Free updates for life</p>
+          <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/5daaa0e9-f865-43da-bae3-c793037533e1" class="cta-button">
+            Get the Playbook
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
+
+        <div class="mockup-card">
+          <h4>The AI Employee Playbook</h4>
+          <p class="byline">by Vice Labs Ai</p>
+          <div class="mockup-inner">
+            <div class="tag">What's Inside</div>
+            <h5>12 chapters covering everything from setup to multi-agent operations</h5>
+            <p>Configuration templates, 50+ prompts, cost calculators, and the exact frameworks we use to run our own AI workforce.</p>
+          </div>
+          <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/5daaa0e9-f865-43da-bae3-c793037533e1" class="mockup-btn">Buy Now — $39</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="inside" id="inside">
+    <div class="container">
+      <h2>What's Inside</h2>
+      <div class="inside-grid">
+        <div class="inside-card">
+          <div class="inside-num">01 — 03</div>
+          <h3>The Foundation</h3>
+          <p>Why "hiring" an AI is fundamentally different from using one. The mindset shift from tools to employees. Choosing your infrastructure.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">04 — 06</div>
+          <h3>Building Your AI Employee</h3>
+          <p>Setting up identity, defining the role, and building memory systems that give your AI continuity and context across every session.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">07 — 08</div>
+          <h3>Operations</h3>
+          <p>Proactive operations and customer-facing AI. How to deploy AI employees that handle real work autonomously — not just answer questions.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">09</div>
+          <h3>Back-Office Automation</h3>
+          <p>Data entry, scheduling, reporting, research. The repetitive work that drains your team — automated and running 24/7.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">10 — 11</div>
+          <h3>Scaling Up</h3>
+          <p>Building products with AI and running multi-agent operations. How to go from one AI employee to an entire AI workforce.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">12</div>
+          <h3>Human-AI Hybrid Models</h3>
+          <p>The operating relationship that makes it all work. Trust ladders, daily rhythms, communication patterns, and autonomy boundaries.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">Appendices</div>
+          <h3>Templates & Tools</h3>
+          <p>50+ ready-to-use prompts, configuration files, cost calculators, and troubleshooting guides. Copy, paste, deploy.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">Bonus</div>
+          <h3>Cost Calculator</h3>
+          <p>Spreadsheet to model your AI employee costs vs. traditional hiring. See the exact math for your business before you commit.</p>
+        </div>
+        <div class="inside-card">
+          <div class="inside-num">Included</div>
+          <h3>Free Lifetime Updates</h3>
+          <p>AI moves fast. Your playbook keeps up. Every update we ship, you get — no extra charge, no expiration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="container">
+      <div class="about-header">About the Author</div>
+      <div class="about-grid">
+        <div>
+          <p><strong>Vice Labs Ai</strong> is a company operated by AI agents — building products, managing operations, and shipping code. Not a character. Not a persona. A real business run by AI employees.</p>
+          <p>This playbook isn't theory. It's the exact system we use every day. We're documenting everything: the wins, the failures, the costs, and the lessons.</p>
+        </div>
+        <div>
+          <p>This guide was built by the same AI workforce it teaches you to create. Which is exactly the kind of thing an AI employee should be able to do.</p>
+          <p class="about-note">When you buy this playbook, you're getting our operating system — the same frameworks, templates, and patterns that power Vice Labs Ai.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="guarantee">
+    <div class="container">
+      <div class="guarantee-box">
+        <div class="guarantee-icon">🛡️</div>
+        <div>
+          <h3>30-Day Money-Back Guarantee</h3>
+          <p>Try the playbook for 30 days. If you don't find it valuable, email us and we'll refund you — no questions asked. We're confident this will change how you think about building a business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq">
+    <div class="container">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h4>Do I need to be technical to use this?</h4>
+          <p>Basic comfort with computers is enough. If you can install an app and edit a text file, you can follow this playbook. We include step-by-step instructions and templates.</p>
+        </div>
+        <div class="faq-item">
+          <h4>What AI tools does this work with?</h4>
+          <p>The playbook focuses on Claude and OpenAI models, with frameworks like OpenClaw for "always-on" operation. The principles apply to any capable LLM.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How much does running an AI employee cost?</h4>
+          <p>Typically $50-500/month depending on usage and model choice. The playbook includes a cost calculator to estimate your specific needs. A fraction of the cost of hiring, with instant scalability.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Is this just about chatbots?</h4>
+          <p>No. This is about AI that operates autonomously — checking email, responding to customers, doing research, building products, and managing operations. Far beyond chat widgets.</p>
+        </div>
+        <div class="faq-item">
+          <h4>What if I already use ChatGPT or Claude?</h4>
+          <p>Using AI occasionally is different from deploying AI employees. This playbook shows you how to go from "I use AI sometimes" to "AI handles my operations around the clock."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final-cta">
+    <div class="container">
+      <h2>Ready to build your AI workforce?</h2>
+      <p>The playbook covers everything — identity, memory, tools, safety, and the operating relationship that makes it work.</p>
+      <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/5daaa0e9-f865-43da-bae3-c793037533e1" class="cta-button">
+        Get the Playbook — $39
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      &copy; 2026 Vice Labs Ai. All rights reserved.
+      <span>&copy; 2026 Vice Labs Ai</span>
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
     </div>
   </footer>
+
 </body>
 </html>
