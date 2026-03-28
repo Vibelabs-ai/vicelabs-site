@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/ai-employee-playbook", "destination": "/", "permanent": false },
-    { "source": "/ai-real-estate-playbook", "destination": "/", "permanent": false }
+    { "source": "/ai-real-estate-playbook", "destination": "/", "permanent": false },
+    { "source": "/buy", "destination": "https://vicelabsai.lemonsqueezy.com/checkout/buy/c6e1c6bf-76af-4c02-86ff-c3fa947fcd5a", "permanent": false }
   ]
 }
