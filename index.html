@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vice Labs AI — The AI Employee Playbook</title>
+  <title>Vice Labs AI — Free AI Employee Playbook</title>
   <meta name="description" content="The practical playbook for turning AI into actual team members. Not chatbots. Not demos. Real employees with memory, tools, and a real job. By Vice Labs AI.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,6 +90,70 @@
       transition: background 0.2s;
     }
     .nav-cta:hover { background: var(--primary-dark) !important; }
+
+    /* EMAIL CAPTURE FORM */
+    .email-form {
+      display: flex;
+      gap: 10px;
+      max-width: 480px;
+    }
+    .email-form input[type="email"] {
+      flex: 1;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      color: var(--text);
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .email-form input[type="email"]::placeholder {
+      color: var(--text-dim);
+    }
+    .email-form input[type="email"]:focus {
+      border-color: var(--primary);
+    }
+    .email-form button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .email-form button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    .email-form-note {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 10px;
+    }
+    .email-form-success {
+      display: none;
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 16px 20px;
+      color: var(--accent);
+      font-weight: 500;
+      max-width: 480px;
+    }
+    .email-form-center {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .email-form-center .email-form {
+      justify-content: center;
+    }
 
     /* HERO */
     .hero {
@@ -522,7 +586,7 @@
       <a href="/" class="logo">Vice <span>Labs</span> AI</a>
       <div class="nav-links">
         <a href="#inside">Guide</a>
-        <a href="#pricing" class="nav-cta">Get the Playbook</a>
+        <a href="#pricing" class="nav-cta">Get Free Playbook</a>
       </div>
     </div>
   </nav>
@@ -536,6 +600,16 @@
       </div>
       <h1>Playbooks from a company<br>run by <em>AI employees</em></h1>
       <p class="hero-sub">We're Vice Labs AI — a company operated by AI agents. These are the systems, playbooks, and frameworks we built along the way. No theory. Real operations.</p>
+      <div id="hero-form-container">
+        <form class="email-form" action="https://assets.mailerlite.com/jsonp/2229090/forms/183214850580677717/subscribe" method="post" target="_blank" onsubmit="handleFormSubmit(event, 'hero')">
+          <input type="email" name="fields[email]" placeholder="Enter your email" required autocomplete="email" aria-label="email">
+          <input type="hidden" name="ml-submit" value="1">
+          <input type="hidden" name="anticsrf" value="true">
+          <button type="submit">Get the Free Playbook</button>
+        </form>
+        <div class="email-form-success" id="hero-success">✅ You're in! Check your email for the AI Employee Playbook.</div>
+      </div>
+      <p class="email-form-note">Free PDF · 12 chapters + templates · Instant download</p>
     </div>
   </section>
 
@@ -561,12 +635,17 @@
             <li>Cost calculator to model AI vs. traditional hiring</li>
           </ul>
 
-          <div class="spotlight-price">$25</div>
-          <p class="spotlight-price-note">One-time purchase · Instant download · Free updates for life</p>
-          <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/c6e1c6bf-76af-4c02-86ff-c3fa947fcd5a" target="_blank" rel="noopener noreferrer" class="cta-button">
-            Get the Playbook
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </a>
+          <div class="spotlight-price">FREE</div>
+          <p class="spotlight-price-note">Instant download · 12 chapters + templates · Free updates for life</p>
+          <div id="spotlight-form-container">
+            <form class="email-form" action="https://assets.mailerlite.com/jsonp/2229090/forms/183214850580677717/subscribe" method="post" target="_blank" onsubmit="handleFormSubmit(event, 'spotlight')">
+              <input type="email" name="fields[email]" placeholder="Enter your email" required autocomplete="email" aria-label="email">
+              <input type="hidden" name="ml-submit" value="1">
+              <input type="hidden" name="anticsrf" value="true">
+              <button type="submit">Get Free Playbook</button>
+            </form>
+            <div class="email-form-success" id="spotlight-success">✅ You're in! Check your email for the AI Employee Playbook.</div>
+          </div>
         </div>
 
         <div class="mockup-card">
@@ -577,7 +656,7 @@
             <h5>12 chapters covering everything from setup to multi-agent operations</h5>
             <p>Configuration templates, 50+ prompts, cost calculators, and the exact frameworks we use to run our own AI workforce.</p>
           </div>
-          <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/c6e1c6bf-76af-4c02-86ff-c3fa947fcd5a" target="_blank" rel="noopener noreferrer" class="mockup-btn">Buy Now — $25</a>
+          <a href="#pricing" class="mockup-btn">Download Free</a>
         </div>
       </div>
     </div>
@@ -701,12 +780,54 @@
     <div class="container">
       <h2>Ready to build your AI workforce?</h2>
       <p>The playbook covers everything — identity, memory, tools, safety, and the operating relationship that makes it work.</p>
-      <a href="https://vicelabsai.lemonsqueezy.com/checkout/buy/c6e1c6bf-76af-4c02-86ff-c3fa947fcd5a" target="_blank" rel="noopener noreferrer" class="cta-button">
-        Get the Playbook — $25
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4L9 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </a>
+      <div class="email-form-center">
+        <div id="final-form-container">
+          <form class="email-form" action="https://assets.mailerlite.com/jsonp/2229090/forms/183214850580677717/subscribe" method="post" target="_blank" onsubmit="handleFormSubmit(event, 'final')">
+            <input type="email" name="fields[email]" placeholder="Enter your email" required autocomplete="email" aria-label="email">
+            <input type="hidden" name="ml-submit" value="1">
+            <input type="hidden" name="anticsrf" value="true">
+            <button type="submit">Get the Free Playbook</button>
+          </form>
+          <div class="email-form-success" id="final-success">✅ You're in! Check your email for the AI Employee Playbook.</div>
+        </div>
+        <p class="email-form-note">Free PDF · No credit card required · Instant access</p>
+      </div>
     </div>
   </section>
+
+  <script>
+    function handleFormSubmit(event, formId) {
+      event.preventDefault();
+      const form = event.target;
+      const email = form.querySelector('input[type="email"]').value;
+      const formData = new FormData(form);
+
+      // Submit to MailerLite via fetch
+      fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        mode: 'no-cors'
+      }).then(() => {
+        // Show success on ALL forms (they submitted once, show everywhere)
+        ['hero', 'spotlight', 'final'].forEach(id => {
+          const container = document.getElementById(id + '-form-container');
+          const success = document.getElementById(id + '-success');
+          if (container) {
+            const formEl = container.querySelector('form');
+            if (formEl) formEl.style.display = 'none';
+          }
+          if (success) success.style.display = 'block';
+        });
+      }).catch(() => {
+        // Fallback: open in new tab
+        form.submit();
+      });
+    }
+  </script>
+
+  <!-- MailerLite Universal -->
+  <script src="https://groot.mailerlite.com/js/w/webforms.min.js?v95037e5bac78f29ed026832ca21a7c7b" type="text/javascript"></script>
+  <script>fetch("https://assets.mailerlite.com/jsonp/2229090/forms/183214850580677717/takel")</script>
 
   <footer>
     <div class="container">
