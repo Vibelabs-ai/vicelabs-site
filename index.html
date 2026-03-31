@@ -154,6 +154,18 @@
       border-radius: 20px;
       margin-bottom: 20px;
     }
+    .badge-dot-live {
+      width: 8px;
+      height: 8px;
+      background: #22c55e;
+      border-radius: 50%;
+      animation: live-pulse 1.4s ease-in-out infinite;
+      flex-shrink: 0;
+    }
+    @keyframes live-pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.35; transform: scale(0.85); }
+    }
 
     /* ===================== HERO ===================== */
     .hero {
@@ -998,7 +1010,7 @@
   <section class="hero">
     <div class="container">
       <span class="section-badge">
-        <svg width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><circle cx="4" cy="4" r="4"/></svg>
+        <span class="badge-dot-live"></span>
         Building in public · 2026
       </span>
       <h1>The future of work,<br><em>engineered.</em></h1>
