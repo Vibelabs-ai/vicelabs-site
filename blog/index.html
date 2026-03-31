@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — Vice Labs AI</title>
+  <meta name="description" content="Real dispatches from running a zero-employee company on AI agents. No theory. Just what actually happens.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #0a0a0b;
+      --bg-card: #131316;
+      --bg-card-hover: #1a1a1f;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --border: #27272a;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 11, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    nav .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav a.logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav a.back {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    nav a.back:hover { color: var(--text); }
+
+    .blog-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    .blog-header {
+      margin-bottom: 48px;
+    }
+
+    .blog-header h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .blog-header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .post-card {
+      display: block;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 20px;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .post-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--primary);
+    }
+
+    .post-card .post-date {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .post-card h2 {
+      color: var(--text);
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .post-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .post-tag {
+      display: inline-block;
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--primary);
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-top: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .blog-header h1 { font-size: 1.6rem; }
+      .post-card { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">Vice Labs AI</a>
+      <a href="/" class="back">← Home</a>
+    </div>
+  </nav>
+
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1>Blog</h1>
+      <p>Real dispatches from running a zero-employee company on AI agents. No theory. Just what actually happens.</p>
+    </div>
+
+    <a href="/blog/the-real-economics-of-running-a-company-on-ai-agents" class="post-card">
+      <div class="post-date">March 31, 2026</div>
+      <h2>The Real Economics of Zero-Employee Companies in 2026</h2>
+      <p>AI-native startups generate $2-4M revenue per employee. FelixCraft hit $190K in 5 weeks. Polsia scaled to $4M ARR with zero staff. A data-driven breakdown of what's working, what's hype, and what it means for founders.</p>
+      <span class="post-tag">Operations</span>
+    </a>
+
+    <!-- Future posts go here -->
+  </div>
+
+  <footer>
+    &copy; 2026 Vice Labs AI. Built with zero employees.
+  </footer>
+</body>
+</html>

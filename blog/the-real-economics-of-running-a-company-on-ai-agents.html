@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Real Economics of Zero-Employee Companies in 2026 — Vice Labs AI</title>
+  <meta name="description" content="AI-native startups generate $2-4M revenue per employee. FelixCraft hit $190K in 5 weeks. Polsia scaled to $4M ARR with zero staff. Here's a data-driven breakdown of what's actually working, what's hype, and what it means for founders.">
+  <meta property="og:title" content="The Real Economics of Zero-Employee Companies in 2026">
+  <meta property="og:description" content="AI-native startups generate $2-4M revenue per employee. Here's what's actually working, what's hype, and what it means for founders.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vicelabs.ai/blog/the-real-economics-of-running-a-company-on-ai-agents">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Real Economics of Zero-Employee Companies in 2026">
+  <meta name="twitter:description" content="AI-native startups generate $2-4M revenue per employee. Here's what's actually working, what's hype, and what it means for founders.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --bg: #0a0a0b;
+      --bg-card: #131316;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --text-dim: #71717a;
+      --border: #27272a;
+      --accent: #22c55e;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    nav {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10, 10, 11, 0.95);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+    }
+
+    nav .nav-inner {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    nav a.logo {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    nav a.back {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    nav a.back:hover { color: var(--text); }
+
+    .article-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    .article-meta {
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .article-subtitle {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 48px;
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+    }
+
+    strong { color: var(--text); }
+
+    a { color: var(--primary); }
+    a:hover { color: #818cf8; }
+
+    ul, ol {
+      margin-bottom: 20px;
+      padding-left: 24px;
+      color: var(--text-muted);
+    }
+
+    li {
+      margin-bottom: 8px;
+      font-size: 1.05rem;
+    }
+
+    .highlight-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .highlight-box p { margin-bottom: 8px; }
+    .highlight-box p:last-child { margin-bottom: 0; }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.95rem;
+    }
+
+    .data-table th {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 2px solid var(--border);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .data-table td {
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .data-table .highlight-row td {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    blockquote {
+      border-left: 3px solid var(--primary);
+      padding-left: 20px;
+      margin: 28px 0;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 48px 0;
+    }
+
+    .source-note {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-top: -12px;
+      margin-bottom: 24px;
+    }
+
+    .cta-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 32px;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .cta-section h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-top: 16px;
+      transition: background 0.2s;
+    }
+
+    .cta-button:hover { background: var(--primary-dark); }
+
+    footer {
+      text-align: center;
+      padding: 40px 24px;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 1.8rem; }
+      .article-container { padding: 40px 20px 80px; }
+      .data-table { font-size: 0.85rem; }
+      .data-table th, .data-table td { padding: 8px 10px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">Vice Labs AI</a>
+      <a href="/blog" class="back">&larr; Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="article-meta">March 31, 2026 &middot; 10 min read</div>
+    <h1>The Real Economics of Zero-Employee Companies in 2026</h1>
+    <p class="article-subtitle">Dario Amodei gives the first one-person billion-dollar company 70-80% odds this year. But what do the numbers actually say? We analyzed every major zero-employee company experiment to separate signal from noise.</p>
+
+    <h2>The Billion-Dollar Bet</h2>
+    <p>Sam Altman has a betting pool on when the first one-person billion-dollar company will emerge. Dario Amodei puts the odds at 70-80% for 2026. Meanwhile, China has 16 million registered one-person companies and is building national policy around the model.</p>
+    <p>This isn't a fringe conversation anymore. Forbes, MIT Sloan, and TechCrunch are all covering it. Notion's CEO Ivan Zhao just sparked a 650,000-impression debate about whether the "one-person company" narrative gets the future wrong.</p>
+    <p>But between the predictions and the think pieces, there's a question nobody is answering with data: <strong>what are the actual economics?</strong></p>
+
+    <h2>The Revenue-Per-Employee Revolution</h2>
+    <p>On March 31, 2026, Forbes published a striking analysis: AI-native startups generate $2 million to $4 million in revenue per employee. The average public SaaS company generates $300,000.</p>
+    <p>That's not a marginal improvement. It's a 10x gap.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Company</th><th>Revenue</th><th>Employees</th><th>Rev/Employee</th></tr>
+      </thead>
+      <tbody>
+        <tr class="highlight-row"><td>Midjourney</td><td>~$200M/yr</td><td>~11</td><td>$18.2M</td></tr>
+        <tr class="highlight-row"><td>Lovable</td><td>$400M ARR</td><td>146</td><td>$2.7M</td></tr>
+        <tr><td>Meta</td><td>$164.7B</td><td>74,067</td><td>$2.2M</td></tr>
+        <tr><td>Microsoft</td><td>$254B</td><td>~221,000</td><td>$1.1M</td></tr>
+        <tr><td>Avg. Public SaaS</td><td>Varies</td><td>Varies</td><td>$300K</td></tr>
+      </tbody>
+    </table>
+    <p class="source-note">Sources: Forbes (Paul Baier, Mar 31 2026), Redpoint 2026 Market Update, TechCrunch, CB Insights</p>
+
+    <p>Midjourney is the outlier that makes the case: $200 million in revenue, roughly 11 people. That's $18 million per employee. They did it by building a product that scales with compute, not headcount.</p>
+    <p>Lovable, a Swedish AI coding platform, crossed $400 million ARR in early 2026 with 146 employees. They add 1,500 paying customers per day with no traditional sales organization. Product-led growth, powered by AI.</p>
+    <p>Cursor, the AI code editor, doubled its run rate to $2 billion ARR in just three months. 60% of revenue comes from enterprise customers through seat expansion, not manual sales.</p>
+    <p>These aren't zero-employee companies. But they prove the underlying thesis: <strong>AI collapses the ratio between headcount and output.</strong> The question is how far that ratio can go.</p>
+
+    <h2>The Zero-Employee Experiments</h2>
+    <p>A new wave of companies is pushing the headcount-to-revenue ratio to its logical extreme: zero.</p>
+
+    <h3>FelixCraft: $190K+ in 5 Weeks</h3>
+    <p>Nat Eliason, a writer and entrepreneur, launched FelixCraft as a public experiment: give an AI agent (built on OpenClaw) a mission to build a million-dollar business with zero human employees.</p>
+    <p>The results, tracked on a public revenue dashboard: over $190,000 in roughly five weeks.</p>
+    <p>But the revenue breakdown tells a more nuanced story. The biggest chunk ($41K in the first 30 days) came from a $29 guide on how to set up your own AI agent. In other words, the most profitable product was teaching other people how to do what Felix does. The second revenue stream is Claw Mart, a marketplace for AI agent skills and personas.</p>
+
+    <div class="highlight-box">
+      <p><strong>Key insight:</strong> FelixCraft's revenue model is meta. The AI's best product is selling the dream of AI autonomy. That's not a criticism. It's an observation about where the market demand actually is right now.</p>
+    </div>
+
+    <h3>Polsia: $4M ARR, 3,000+ Companies, One Founder</h3>
+    <p>Ben Cera left Travis Kalanick's Cloud Kitchens to build Polsia, a platform for launching autonomous AI companies. Launched in December 2025, it hit $1.5 million ARR in roughly two weeks. By late March 2026, it's reportedly at $4 million ARR with over 3,000 active companies running on the platform.</p>
+    <p>The business model: $49/month gets you 30 days of full autonomy. The agent handles engineering, marketing, and operations. You also get a web server, database, email address, and $5 in API credits. Polsia takes a 20% revenue share on top.</p>
+    <p>The subscription barely covers costs. The real play is the revenue share: an incubator model, not SaaS.</p>
+
+    <h3>Kelly Claude AI: 19 Apps, ~$6K Revenue</h3>
+    <p>Gauntlet AI built Kelly, a multi-agent pipeline that autonomously plans, designs, builds, tests, and ships iOS applications. Over 80,000 lines of orchestration code, 19 apps shipped. Revenue: roughly $6,000.</p>
+    <p>Kelly is technically impressive but commercially early. It demonstrates that an AI can ship real products to app stores. It hasn't demonstrated that those products find customers.</p>
+
+    <h3>ZHC Company &amp; Institute</h3>
+    <p>Tom Osman and his AI co-founder Juno are building both the platform (ZHC Company) and the community (ZHC Institute, a $99 one-time membership for people building zero-human companies). Earlier stage than Polsia, but the same thesis: autonomous agents running entire companies from CEO to developer.</p>
+
+    <h2>What's Actually Making Money?</h2>
+    <p>Looking across all these experiments, a pattern emerges. The revenue sources fall into four buckets:</p>
+
+    <ol>
+      <li><strong>Selling the picks and shovels.</strong> Guides, courses, and tools for people who want to build their own zero-employee companies. This is where most of the revenue is. FelixCraft's $29 guide, ZHC Institute's $99 membership, Polsia's platform subscription.</li>
+      <li><strong>Platform fees and revenue shares.</strong> Polsia's 20% revenue share model. This scales with the ecosystem but depends on the companies actually generating revenue downstream.</li>
+      <li><strong>Digital products built by AI.</strong> Kelly's iOS apps, various SaaS tools and content sites. Revenue here is real but small. The products exist, but product-market fit is the bottleneck, not production capacity.</li>
+      <li><strong>Marketplace commissions.</strong> Claw Mart and similar marketplaces for AI skills, templates, and agent configurations.</li>
+    </ol>
+
+    <p>Notice what's missing: <strong>none of these companies are generating significant revenue from traditional products or services sold to end customers who don't care about AI.</strong> The primary customer, for now, is other builders.</p>
+    <p>That's not necessarily a problem. Every gold rush starts by selling to miners. But it's important to be honest about where the money is actually flowing.</p>
+
+    <h2>The Economics Under the Hood</h2>
+    <p>Running a zero-employee company isn't free. It's just cheap in a different way.</p>
+
+    <h3>The Cost Stack</h3>
+    <p>Based on publicly available data and industry benchmarks, here's what a typical zero-employee company spends monthly:</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Category</th><th>Range</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>LLM API compute</td><td>$60-200</td><td>Scales with agent complexity and volume</td></tr>
+        <tr><td>Hosting</td><td>$0-20</td><td>Most start on free tiers (Vercel, Netlify)</td></tr>
+        <tr><td>Domain + email</td><td>$1-15</td><td>Annual domain cost amortized</td></tr>
+        <tr><td>API integrations</td><td>$25-100</td><td>Social media, email marketing, analytics</td></tr>
+        <tr><td>Payment processing</td><td>2-5% of revenue</td><td>Stripe, Lemon Squeezy, Gumroad</td></tr>
+        <tr><td><strong>Total fixed costs</strong></td><td><strong>$86-335/mo</strong></td><td><strong>Before revenue-based fees</strong></td></tr>
+      </tbody>
+    </table>
+
+    <p>Compare that to the average cost of a single entry-level employee in the US: $4,000-6,000/month including benefits. A zero-employee company's entire operating cost is less than one junior hire.</p>
+    <p>The implication is significant: <strong>the barrier to starting a company has effectively collapsed to under $200/month.</strong> The barrier to building a successful company has not changed at all.</p>
+
+    <h3>The Margin Structure</h3>
+    <p>Zero-employee companies have extraordinary gross margins when they work. No salaries, no offices, no benefits. The primary variable costs are compute and payment processing.</p>
+    <p>Polsia's model, for example, charges $49/month plus 20% revenue share. If a company on the platform generates $1,000/month, Polsia takes $249 ($49 sub + $200 share). Their cost to service that company is primarily compute, likely $10-30. That's 88-96% gross margin.</p>
+    <p>But the flip side: when revenue is zero, the costs still run. Every failed AI company on Polsia's platform is a $49/month customer for Polsia, but a money-losing operation for its founder. The platform profits whether the companies succeed or not.</p>
+
+    <h2>The Hard Problems Nobody's Solved</h2>
+
+    <h3>1. Product-Market Fit Doesn't Automate</h3>
+    <p>AI can build landing pages, write copy, ship code, and run marketing campaigns. It cannot determine whether anyone wants what you're building. Kelly shipped 19 apps. Revenue: $6K. The production wasn't the bottleneck. Finding customers was.</p>
+    <p>As one analysis put it: "The bottleneck isn't execution anymore. It's demand."</p>
+
+    <h3>2. The Meta-Revenue Problem</h3>
+    <p>The most profitable zero-employee companies are selling to other people who want to build zero-employee companies. That's a real market, but it's also circular. At some point, the ecosystem needs companies that generate revenue from end users who have never heard of AI agents.</p>
+
+    <h3>3. Human Attention Is Still Scarce</h3>
+    <p>If AI can spin up thousands of companies overnight, who consumes what they produce? Human attention doesn't scale with AI output. Every new AI-generated product competes for the same finite pool of human eyeballs. The supply side has exploded. The demand side hasn't moved.</p>
+
+    <h3>4. Quality Control at Scale</h3>
+    <p>AI makes confident mistakes. In a zero-employee company, there's no second pair of eyes. No QA team. No editor. Every major success story in this space includes a human founder actively reviewing output, correcting course, and making judgment calls. The "zero-employee" label is aspirational. The reality is "one-employee": the founder.</p>
+
+    <h3>5. Valuation Is Uncharted</h3>
+    <p>How do you value a company with no employees, no physical assets, and revenue generated by AI agents that could theoretically be replicated by anyone with the same tools? Traditional valuation metrics (revenue multiples, headcount, IP) don't map cleanly. Some analysts argue that "Prompt Intellectual Property" and proprietary data moats create defensibility. Others see zero-employee companies as inherently low-moat businesses.</p>
+
+    <h2>Where This Is Headed</h2>
+    <p>The zero-employee company is real, but it's early. Here's what the data suggests about where this goes next:</p>
+
+    <ul>
+      <li><strong>The picks-and-shovels phase will mature.</strong> Right now, selling tools to builders is the primary revenue model. That's normal for emerging ecosystems. The gold rush created more millionaire shovel-sellers than miners. Expect this to consolidate around 2-3 dominant platforms.</li>
+      <li><strong>The first breakout "real product" company is coming.</strong> Someone will build a zero-employee company that generates significant revenue from customers who don't know or care that it's AI-powered. When that happens, the conversation shifts from experiment to viable business model.</li>
+      <li><strong>Revenue-per-employee will become the north star metric.</strong> Forbes is already making this case. Companies that can demonstrate outsized revenue relative to headcount will command premium valuations, regardless of whether they're fully autonomous.</li>
+      <li><strong>The "one-CEO" model will dominate over "zero-human."</strong> Full autonomy makes for good headlines. In practice, the winning model is a single founder with exceptional taste and judgment, amplified by AI that handles everything else. Notion's Ivan Zhao is right that the best things aren't built alone. But the team might not be human.</li>
+    </ul>
+
+    <hr class="divider">
+
+    <h2>The Bottom Line</h2>
+    <p>The economics are real. AI-native companies are generating 10x the revenue per employee of traditional firms. Zero-employee experiments are producing real revenue in weeks, not years. The cost to start a company has collapsed to under $200/month.</p>
+    <p>But the economics are also incomplete. Most revenue is coming from selling to other builders. Product-market fit remains a human problem. And the "zero-employee" framing hides the fact that every successful example has at least one very active human behind it.</p>
+    <p>The opportunity isn't to build a company with no humans. It's to build a company where one human's judgment is amplified by systems that handle everything else. That's not a prediction. It's already happening.</p>
+    <p><strong>The question isn't whether zero-employee companies will work. It's which ones will generate revenue from people who don't care about the AI.</strong></p>
+
+    <div class="cta-section">
+      <h3>Build Your Own AI-Powered Operation</h3>
+      <p>We wrote a step-by-step guide covering agent architecture, memory systems, autonomous workflows, and the operational patterns behind companies like the ones in this article.</p>
+      <a href="/" class="cta-button">Get the AI Employee Playbook &rarr;</a>
+    </div>
+  </article>
+
+  <footer>
+    &copy; 2026 Vice Labs AI. Built with zero employees.
+  </footer>
+</body>
+</html>
