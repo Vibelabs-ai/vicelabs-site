@@ -1,0 +1,108 @@
+{
+  "lastUpdated": "2026-03-30T23:30:00-04:00",
+  "revenue": {
+    "lifetime": 0,
+    "salesThisMonth": 0,
+    "revenueToday": 0,
+    "dailyTarget": 2740,
+    "capitalRemaining": 950,
+    "capitalStart": 1000
+  },
+  "email": {
+    "totalSubscribers": 0,
+    "newThisWeek": 0,
+    "freeToPaidConversion": 0
+  },
+  "twitter": {
+    "followers": 5,
+    "impressions7d": 256,
+    "engagementRate": 10.8,
+    "tweetsThisWeek": 20,
+    "repliesThisWeek": 6
+  },
+  "priorities": [
+    {
+      "title": "Get First Sale",
+      "description": "Test $47 checkout flow end to end, drive traffic to vicelabs.ai/buy",
+      "status": "blocked"
+    },
+    {
+      "title": "Grow Email List",
+      "description": "Free playbook funnel live, need traffic sources",
+      "status": "in-progress"
+    },
+    {
+      "title": "Build X Presence",
+      "description": "1 post/day + outbound replies, casual voice, no self promo in threads",
+      "status": "in-progress"
+    }
+  ],
+  "weeklyTargets": [
+    { "metric": "Revenue", "target": "$329", "actual": "$0", "status": "behind" },
+    { "metric": "Email Subscribers", "target": "10", "actual": "0", "status": "behind" },
+    { "metric": "X Followers", "target": "15", "actual": "5", "status": "behind" },
+    { "metric": "Posts + Replies", "target": "14", "actual": "20", "status": "ahead" }
+  ],
+  "pendingReview": [
+    {
+      "id": "review-001",
+      "category": "Strategy",
+      "title": "Community Pre-Sell Strategy",
+      "summary": "Discord-based Insider Community at $29/mo founding member pricing. 6-category structure, 3-email pre-sell sequence ready.",
+      "filed": "2026-03-29",
+      "docLink": "strategies/insider-community-strategy.md"
+    },
+    {
+      "id": "review-002",
+      "category": "Branding",
+      "title": "Brand Refresh: Amber Gold Direction",
+      "summary": "New color palette with amber gold (#F59E0B) replacing purple. Space Grotesk + Inter typography. Wordmark-first logo approach.",
+      "filed": "2026-03-29",
+      "docLink": "branding/brand-guidelines-v2.md"
+    },
+    {
+      "id": "review-003",
+      "category": "Infrastructure",
+      "title": "SecurityBot Phase 1 Spec",
+      "summary": "Cron-based system monitoring: gateway health, disk, security posture, business infra. 5 monitoring categories.",
+      "filed": "2026-03-22",
+      "docLink": "research/security-healthcheck-bot.md"
+    },
+    {
+      "id": "review-004",
+      "category": "Operations",
+      "title": "Test $47 Purchase Flow",
+      "summary": "End-to-end test of Lemon Squeezy checkout and PDF delivery. Takes ~5 minutes. Confirms paid product works before driving traffic.",
+      "filed": "2026-03-30",
+      "docLink": null
+    },
+    {
+      "id": "review-005",
+      "category": "Content",
+      "title": "ContentBot Media Stack Budget",
+      "summary": "ElevenLabs ($5/mo) + HeyGen ($29/mo) + DALL-E + Sora. Total $55-119/mo. Break-even at 2-4 playbook sales.",
+      "filed": "2026-03-25",
+      "docLink": "contentbot-pipeline.md"
+    }
+  ],
+  "outlook": {
+    "days30": [
+      "First sale confirmed",
+      "Email list to 50+ subscribers",
+      "X followers to 50+",
+      "Reddit account active"
+    ],
+    "days60": [
+      "Consistent $500+/week revenue",
+      "Email list to 250+",
+      "Insider Community launched",
+      "Content pipeline automated"
+    ],
+    "days90": [
+      "$2K+/week revenue",
+      "AI Workforce Blueprint (course) in production",
+      "Multi-channel presence established",
+      "First done with you client"
+    ]
+  }
+}

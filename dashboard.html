@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vice Labs AI : CEO Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0a0a0b;
+    --card: #131316;
+    --card-hover: #1a1a1f;
+    --border: #1e1e24;
+    --text: #f4f4f5;
+    --muted: #a1a1aa;
+    --dim: #71717a;
+    --green: #22c55e;
+    --green-dim: rgba(34,197,94,0.12);
+    --red: #ef4444;
+    --red-dim: rgba(239,68,68,0.12);
+    --amber: #f59e0b;
+    --amber-dim: rgba(245,158,11,0.12);
+    --purple: #6366f1;
+    --purple-dim: rgba(99,102,241,0.12);
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Subtle grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .wordmark {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .wordmark span {
+    color: var(--purple);
+  }
+
+  .header-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--muted);
+    padding-left: 16px;
+    border-left: 1px solid var(--border);
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .last-updated {
+    font-size: 12px;
+    color: var(--dim);
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* Data unavailable banner */
+  .banner {
+    background: var(--amber-dim);
+    border: 1px solid rgba(245,158,11,0.25);
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: var(--amber);
+    margin-bottom: 24px;
+    display: none;
+  }
+
+  .banner.visible { display: block; }
+
+  /* Section titles */
+  .section-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--dim);
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+
+  .section-title:first-of-type { margin-top: 0; }
+
+  /* Card grid */
+  .grid { display: grid; gap: 12px; }
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+
+  @media (max-width: 768px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: repeat(2, 1fr); }
+    .grid-outlook { grid-template-columns: 1fr !important; }
+  }
+
+  @media (max-width: 480px) {
+    .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
+    .container { padding: 16px 14px 40px; }
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: card-in 0.5s ease forwards;
+  }
+
+  .card:hover {
+    background: var(--card-hover);
+    border-color: #2a2a32;
+    transform: translateY(-1px);
+  }
+
+  @keyframes card-in {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.2s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+
+  .card-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .card-value {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .card-value.green { color: var(--green); }
+  .card-value.red { color: var(--red); }
+  .card-value.amber { color: var(--amber); }
+  .card-value.purple { color: var(--purple); }
+
+  .card-sub {
+    font-size: 12px;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  /* Hero revenue card */
+  .card.hero {
+    background: linear-gradient(135deg, rgba(34,197,94,0.06) 0%, var(--card) 60%);
+    border-color: rgba(34,197,94,0.15);
+  }
+
+  .card.hero:hover {
+    border-color: rgba(34,197,94,0.3);
+    background: linear-gradient(135deg, rgba(34,197,94,0.1) 0%, var(--card-hover) 60%);
+  }
+
+  .card.hero .card-value {
+    font-size: 36px;
+  }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-top: 12px;
+  }
+
+  .progress-bar-bg {
+    height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .progress-bar-fill.green { background: var(--green); }
+  .progress-bar-fill.red { background: var(--red); }
+  .progress-bar-fill.amber { background: var(--amber); }
+  .progress-bar-fill.purple { background: var(--purple); }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  /* Capital bar */
+  .capital-bar {
+    margin-top: 12px;
+  }
+
+  /* Priority list */
+  .priority-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: card-in 0.5s ease forwards;
+  }
+
+  .priority-item:nth-child(1) { animation-delay: 0.1s; }
+  .priority-item:nth-child(2) { animation-delay: 0.15s; }
+  .priority-item:nth-child(3) { animation-delay: 0.2s; }
+
+  .priority-item:hover {
+    background: var(--card-hover);
+    border-color: #2a2a32;
+  }
+
+  .priority-status {
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .priority-content { flex: 1; }
+
+  .priority-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+
+  .priority-desc {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .priority-badge {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .priority-badge.blocked { background: var(--red-dim); color: var(--red); }
+  .priority-badge.in-progress { background: var(--amber-dim); color: var(--amber); }
+  .priority-badge.done { background: var(--green-dim); color: var(--green); }
+
+  /* Table */
+  .table-wrap {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: card-in 0.5s ease 0.15s forwards;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--dim);
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody tr:hover { background: var(--card-hover); }
+
+  .status-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: capitalize;
+  }
+
+  .status-pill.behind { background: var(--red-dim); color: var(--red); }
+  .status-pill.on-track { background: var(--green-dim); color: var(--green); }
+  .status-pill.ahead { background: var(--green-dim); color: var(--green); }
+
+  /* Outlook columns */
+  .grid-outlook {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .outlook-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: card-in 0.5s ease forwards;
+  }
+
+  .outlook-card:nth-child(1) { animation-delay: 0.1s; }
+  .outlook-card:nth-child(2) { animation-delay: 0.15s; }
+  .outlook-card:nth-child(3) { animation-delay: 0.2s; }
+
+  .outlook-card:hover {
+    background: var(--card-hover);
+    border-color: #2a2a32;
+  }
+
+  .outlook-header {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .outlook-header.d30 { color: var(--green); }
+  .outlook-header.d60 { color: var(--purple); }
+  .outlook-header.d90 { color: var(--amber); }
+
+  .outlook-sub {
+    font-size: 11px;
+    color: var(--dim);
+    margin-bottom: 14px;
+  }
+
+  .outlook-list {
+    list-style: none;
+  }
+
+  .outlook-list li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 5px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+
+  .outlook-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--dim);
+  }
+
+  .outlook-card.d30 .outlook-list li::before { background: var(--green); }
+  .outlook-card.d60 .outlook-list li::before { background: var(--purple); }
+  .outlook-card.d90 .outlook-list li::before { background: var(--amber); }
+
+  /* Pending Review Section */
+  .review-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 10px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: card-in 0.5s ease forwards;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+
+  .review-item:hover {
+    background: var(--card-hover);
+    border-color: #2a2a32;
+  }
+
+  .review-item:nth-child(1) { animation-delay: 0.05s; }
+  .review-item:nth-child(2) { animation-delay: 0.1s; }
+  .review-item:nth-child(3) { animation-delay: 0.15s; }
+  .review-item:nth-child(4) { animation-delay: 0.2s; }
+  .review-item:nth-child(5) { animation-delay: 0.25s; }
+
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+
+  .review-category {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: var(--purple-dim);
+    color: var(--purple);
+    flex-shrink: 0;
+  }
+
+  .review-category.strategy { background: var(--purple-dim); color: var(--purple); }
+  .review-category.branding { background: var(--amber-dim); color: var(--amber); }
+  .review-category.infrastructure { background: var(--green-dim); color: var(--green); }
+  .review-category.operations { background: var(--red-dim); color: var(--red); }
+  .review-category.content { background: rgba(59,130,246,0.12); color: #3b82f6; }
+
+  .review-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .review-date {
+    font-size: 11px;
+    color: var(--dim);
+    flex-shrink: 0;
+  }
+
+  .review-summary {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .review-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .btn-approve {
+    background: var(--green-dim);
+    color: var(--green);
+    border-color: rgba(34,197,94,0.2);
+  }
+
+  .btn-approve:hover {
+    background: rgba(34,197,94,0.2);
+    border-color: rgba(34,197,94,0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-feedback {
+    background: var(--amber-dim);
+    color: var(--amber);
+    border-color: rgba(245,158,11,0.2);
+  }
+
+  .btn-feedback:hover {
+    background: rgba(245,158,11,0.2);
+    border-color: rgba(245,158,11,0.4);
+    transform: translateY(-1px);
+  }
+
+  .btn-view {
+    background: rgba(255,255,255,0.04);
+    color: var(--muted);
+    border-color: var(--border);
+  }
+
+  .btn-view:hover {
+    background: rgba(255,255,255,0.08);
+    color: var(--text);
+    transform: translateY(-1px);
+  }
+
+  .btn:active { transform: translateY(0); }
+
+  .review-empty {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px 20px;
+    text-align: center;
+    color: var(--dim);
+    font-size: 14px;
+  }
+
+  .review-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--amber);
+    background: var(--amber-dim);
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* Feedback modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    max-width: 480px;
+    width: 100%;
+    animation: card-in 0.3s ease forwards;
+  }
+
+  .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+
+  .modal-sub {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .modal textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .modal textarea:focus {
+    border-color: var(--purple);
+  }
+
+  .modal textarea::placeholder {
+    color: var(--dim);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 14px;
+  }
+
+  .btn-cancel {
+    background: transparent;
+    color: var(--muted);
+    border-color: var(--border);
+  }
+
+  .btn-cancel:hover {
+    background: rgba(255,255,255,0.04);
+    color: var(--text);
+  }
+
+  .btn-send {
+    background: var(--purple-dim);
+    color: var(--purple);
+    border-color: rgba(99,102,241,0.2);
+  }
+
+  .btn-send:hover {
+    background: rgba(99,102,241,0.2);
+    border-color: rgba(99,102,241,0.4);
+  }
+
+  /* Toast notification */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    z-index: 200;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+    max-width: 320px;
+  }
+
+  .toast.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .toast.success { border-color: rgba(34,197,94,0.3); }
+  .toast.success::before { content: '✅ '; }
+
+  /* Twitter row: 5 items */
+  .grid-5 { grid-template-columns: repeat(5, 1fr); }
+
+  @media (max-width: 900px) {
+    .grid-5 { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .grid-5 { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Responsive table */
+  @media (max-width: 480px) {
+    table { font-size: 12px; }
+    thead th, tbody td { padding: 10px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-left">
+      <div class="wordmark">Vice Labs <span>AI</span></div>
+      <div class="header-title">CEO Dashboard</div>
+    </div>
+    <div class="header-right">
+      <div class="status-dot"></div>
+      <div class="last-updated" id="lastUpdated">Loading...</div>
+    </div>
+  </div>
+
+  <!-- Data unavailable banner -->
+  <div class="banner" id="banner">⚠️ Data unavailable. Showing placeholder values.</div>
+
+  <!-- Revenue Section -->
+  <div class="section-title">Revenue</div>
+  <div class="grid grid-4">
+    <div class="card hero">
+      <div class="card-label">Total Revenue (Lifetime)</div>
+      <div class="card-value green" id="revLifetime">$0</div>
+      <div class="card-sub">Target: $1,000,000</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Sales This Month</div>
+      <div class="card-value" id="revSales">0</div>
+      <div class="card-sub">March 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Revenue Today</div>
+      <div class="card-value" id="revToday">$0</div>
+      <div class="progress-wrap">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill green" id="revTodayBar"></div>
+        </div>
+        <div class="progress-label">
+          <span id="revTodayPct">0%</span>
+          <span id="revTodayTarget">of $2,740 target</span>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">Capital Remaining</div>
+      <div class="card-value" id="capRemaining">$950</div>
+      <div class="progress-wrap capital-bar">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill purple" id="capBar"></div>
+        </div>
+        <div class="progress-label">
+          <span id="capPct">95%</span>
+          <span>of $1,000 starting</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Email Section -->
+  <div class="section-title">Email List</div>
+  <div class="grid grid-3">
+    <div class="card">
+      <div class="card-label">Total Subscribers</div>
+      <div class="card-value purple" id="emailTotal">0</div>
+    </div>
+    <div class="card">
+      <div class="card-label">New This Week</div>
+      <div class="card-value" id="emailNew">0</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Free to Paid Conversion</div>
+      <div class="card-value" id="emailConv">0%</div>
+    </div>
+  </div>
+
+  <!-- Twitter Section -->
+  <div class="section-title">X / Twitter <span style="color:var(--dim)">@MrViceBot</span></div>
+  <div class="grid grid-5">
+    <div class="card">
+      <div class="card-label">Followers</div>
+      <div class="card-value" id="twFollowers">5</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Impressions (7d)</div>
+      <div class="card-value" id="twImpressions">256</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Engagement Rate</div>
+      <div class="card-value green" id="twEngagement">10.8%</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Tweets This Week</div>
+      <div class="card-value" id="twTweets">20</div>
+    </div>
+    <div class="card">
+      <div class="card-label">Replies This Week</div>
+      <div class="card-value" id="twReplies">6</div>
+    </div>
+  </div>
+
+  <!-- Priority Actions -->
+  <div class="section-title">Priority Actions</div>
+  <div id="priorities"></div>
+
+  <!-- Weekly Targets -->
+  <div class="section-title">Weekly Targets</div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Target</th>
+          <th>Actual</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="weeklyTargets"></tbody>
+    </table>
+  </div>
+
+  <!-- 30/60/90 Outlook -->
+  <div class="section-title">30 / 60 / 90 Day Outlook</div>
+  <div class="grid grid-outlook" id="outlook"></div>
+
+  <!-- Pending Review -->
+  <div class="section-title">Pending Your Review <span class="review-count" id="reviewCount">0</span></div>
+  <div id="pendingReview"></div>
+
+  <!-- Feedback Modal -->
+  <div class="modal-overlay" id="feedbackModal">
+    <div class="modal">
+      <div class="modal-title" id="modalTitle">Feedback</div>
+      <div class="modal-sub" id="modalSub">What changes or concerns do you have?</div>
+      <textarea id="feedbackText" placeholder="Type your feedback here..."></textarea>
+      <div class="modal-actions">
+        <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-send" onclick="sendFeedback()">Send to MrVice</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+const FALLBACK = {
+  lastUpdated: new Date().toISOString(),
+  revenue: { lifetime: 0, salesThisMonth: 0, revenueToday: 0, dailyTarget: 2740, capitalRemaining: 950, capitalStart: 1000 },
+  email: { totalSubscribers: 0, newThisWeek: 0, freeToPaidConversion: 0 },
+  twitter: { followers: 0, impressions7d: 0, engagementRate: 0, tweetsThisWeek: 0, repliesThisWeek: 0 },
+  priorities: [
+    { title: "No data loaded", description: "Check dashboard-data.json", status: "blocked" }
+  ],
+  weeklyTargets: [
+    { metric: "N/A", target: "N/A", actual: "N/A", status: "behind" }
+  ],
+  outlook: {
+    days30: ["Data unavailable"],
+    days60: ["Data unavailable"],
+    days90: ["Data unavailable"]
+  }
+};
+
+function fmt(n) {
+  return n.toLocaleString('en-US');
+}
+
+function fmtMoney(n) {
+  if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
+  if (n >= 1000) return '$' + (n / 1000).toFixed(1) + 'K';
+  return '$' + fmt(n);
+}
+
+function render(data) {
+  // Last updated
+  const d = new Date(data.lastUpdated);
+  const opts = { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZoneName: 'short' };
+  document.getElementById('lastUpdated').textContent = 'Updated: ' + d.toLocaleString('en-US', opts);
+
+  // Revenue
+  const rev = data.revenue;
+  document.getElementById('revLifetime').textContent = fmtMoney(rev.lifetime);
+  document.getElementById('revSales').textContent = fmt(rev.salesThisMonth);
+  document.getElementById('revToday').textContent = fmtMoney(rev.revenueToday);
+
+  const todayPct = rev.dailyTarget > 0 ? Math.min((rev.revenueToday / rev.dailyTarget) * 100, 100) : 0;
+  document.getElementById('revTodayPct').textContent = todayPct.toFixed(0) + '%';
+  document.getElementById('revTodayTarget').textContent = 'of $' + fmt(rev.dailyTarget) + ' target';
+  setTimeout(() => {
+    document.getElementById('revTodayBar').style.width = todayPct + '%';
+    if (todayPct === 0) document.getElementById('revTodayBar').style.width = '0%';
+  }, 300);
+
+  // Color the today value
+  const todayEl = document.getElementById('revToday');
+  todayEl.className = 'card-value ' + (todayPct >= 100 ? 'green' : todayPct >= 50 ? 'amber' : '');
+
+  // Capital
+  const capPct = rev.capitalStart > 0 ? (rev.capitalRemaining / rev.capitalStart) * 100 : 0;
+  document.getElementById('capRemaining').textContent = '$' + fmt(rev.capitalRemaining);
+  document.getElementById('capPct').textContent = capPct.toFixed(0) + '%';
+  const capColor = capPct > 50 ? 'purple' : capPct > 25 ? 'amber' : 'red';
+  document.getElementById('capRemaining').className = 'card-value ' + (capPct > 50 ? 'purple' : capPct > 25 ? 'amber' : 'red');
+  const capBarEl = document.getElementById('capBar');
+  capBarEl.className = 'progress-bar-fill ' + capColor;
+  setTimeout(() => { capBarEl.style.width = capPct + '%'; }, 400);
+
+  // Email
+  const email = data.email;
+  document.getElementById('emailTotal').textContent = fmt(email.totalSubscribers);
+  document.getElementById('emailNew').textContent = fmt(email.newThisWeek);
+  const convRate = email.freeToPaidConversion || email.freeToPaydConversion || 0;
+  document.getElementById('emailConv').textContent = convRate + '%';
+
+  // Twitter
+  const tw = data.twitter;
+  document.getElementById('twFollowers').textContent = fmt(tw.followers);
+  document.getElementById('twImpressions').textContent = fmt(tw.impressions7d);
+  document.getElementById('twEngagement').textContent = tw.engagementRate + '%';
+  document.getElementById('twTweets').textContent = fmt(tw.tweetsThisWeek);
+  document.getElementById('twReplies').textContent = fmt(tw.repliesThisWeek);
+
+  // Pending Review
+  renderReview(data);
+
+  // Priorities
+  const statusMap = { 'blocked': '🔴', 'in-progress': '🟡', 'done': '🟢' };
+  const badgeClass = { 'blocked': 'blocked', 'in-progress': 'in-progress', 'done': 'done' };
+  const priEl = document.getElementById('priorities');
+  priEl.innerHTML = '';
+  (data.priorities || []).forEach(p => {
+    priEl.innerHTML += `
+      <div class="priority-item">
+        <div class="priority-status">${statusMap[p.status] || '⚪'}</div>
+        <div class="priority-content">
+          <div class="priority-title">${p.title}</div>
+          <div class="priority-desc">${p.description}</div>
+        </div>
+        <div class="priority-badge ${badgeClass[p.status] || ''}">${(p.status || '').replace('-', ' ')}</div>
+      </div>`;
+  });
+
+  // Weekly Targets
+  const wtEl = document.getElementById('weeklyTargets');
+  wtEl.innerHTML = '';
+  (data.weeklyTargets || []).forEach(t => {
+    wtEl.innerHTML += `
+      <tr>
+        <td style="font-weight:500">${t.metric}</td>
+        <td style="color:var(--muted)">${t.target}</td>
+        <td>${t.actual}</td>
+        <td><span class="status-pill ${t.status}">${t.status.replace('-', ' ')}</span></td>
+      </tr>`;
+  });
+
+  // Outlook
+  const olEl = document.getElementById('outlook');
+  olEl.innerHTML = '';
+  const horizons = [
+    { key: 'days30', label: '30 Days', sub: 'Near term', cls: 'd30', color: 'green' },
+    { key: 'days60', label: '60 Days', sub: 'Mid term', cls: 'd60', color: 'purple' },
+    { key: 'days90', label: '90 Days', sub: 'Long term', cls: 'd90', color: 'amber' }
+  ];
+  horizons.forEach(h => {
+    const items = (data.outlook[h.key] || []).map(i => `<li>${i}</li>`).join('');
+    olEl.innerHTML += `
+      <div class="outlook-card ${h.cls}">
+        <div class="outlook-header ${h.cls}">${h.label}</div>
+        <div class="outlook-sub">${h.sub}</div>
+        <ul class="outlook-list">${items}</ul>
+      </div>`;
+  });
+}
+
+// Pending Review
+const TELEGRAM_BOT = 'MrViceBotAI_bot';
+
+function renderReview(data) {
+  const items = data.pendingReview || [];
+  const container = document.getElementById('pendingReview');
+  const countEl = document.getElementById('reviewCount');
+  countEl.textContent = items.length;
+  if (items.length === 0) {
+    countEl.style.display = 'none';
+    container.innerHTML = '<div class="review-empty">Nothing pending. You are all caught up. 🟢</div>';
+    return;
+  }
+
+  container.innerHTML = '';
+  items.forEach(item => {
+    const catClass = (item.category || '').toLowerCase();
+    const approveMsg = encodeURIComponent('APPROVED: ' + item.title + ' [' + item.id + ']');
+    const approveUrl = 'https://t.me/' + TELEGRAM_BOT + '?start=approve_' + item.id;
+    const div = document.createElement('div');
+    div.className = 'review-item';
+    div.innerHTML = `
+      <div class="review-header">
+        <span class="review-category ${catClass}">${item.category}</span>
+        <span class="review-title">${item.title}</span>
+        <span class="review-date">Filed ${item.filed}</span>
+      </div>
+      <div class="review-summary">${item.summary}</div>
+      <div class="review-actions">
+        <button class="btn btn-approve" onclick="approveItem('${item.id}', '${item.title.replace(/'/g, "\\'")}')">✓ Approve</button>
+        <button class="btn btn-feedback" onclick="openFeedback('${item.id}', '${item.title.replace(/'/g, "\\'")}')">✎ Feedback</button>
+        ${item.docLink ? `<a class="btn btn-view" href="https://github.com/vicelabsai/vicelabs-site/blob/main/${item.docLink}" target="_blank" rel="noopener">View Doc ↗</a>` : ''}
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+let currentFeedbackId = '';
+let currentFeedbackTitle = '';
+
+function approveItem(id, title) {
+  const msg = encodeURIComponent('APPROVED: ' + title + ' [' + id + ']');
+  const url = 'https://t.me/' + TELEGRAM_BOT + '?text=' + msg;
+  window.open(url, '_blank');
+  showToast('Opening Telegram to confirm approval...', 'success');
+}
+
+function openFeedback(id, title) {
+  currentFeedbackId = id;
+  currentFeedbackTitle = title;
+  document.getElementById('modalTitle').textContent = 'Feedback: ' + title;
+  document.getElementById('modalSub').textContent = 'What changes or concerns do you have?';
+  document.getElementById('feedbackText').value = '';
+  document.getElementById('feedbackModal').classList.add('active');
+  setTimeout(() => document.getElementById('feedbackText').focus(), 100);
+}
+
+function closeModal() {
+  document.getElementById('feedbackModal').classList.remove('active');
+  currentFeedbackId = '';
+  currentFeedbackTitle = '';
+}
+
+function sendFeedback() {
+  const text = document.getElementById('feedbackText').value.trim();
+  if (!text) {
+    document.getElementById('feedbackText').style.borderColor = 'var(--red)';
+    setTimeout(() => document.getElementById('feedbackText').style.borderColor = '', 1500);
+    return;
+  }
+  const msg = encodeURIComponent('FEEDBACK on ' + currentFeedbackTitle + ' [' + currentFeedbackId + ']: ' + text);
+  const url = 'https://t.me/' + TELEGRAM_BOT + '?text=' + msg;
+  window.open(url, '_blank');
+  closeModal();
+  showToast('Opening Telegram to send feedback...', 'success');
+}
+
+function showToast(msg, type) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.className = 'toast ' + (type || '') + ' visible';
+  setTimeout(() => toast.className = 'toast', 3000);
+}
+
+// Close modal on escape or overlay click
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.getElementById('feedbackModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('feedbackModal')) closeModal();
+});
+
+// Load data
+async function init() {
+  let data;
+  let fallback = false;
+  try {
+    const res = await fetch('dashboard-data.json?t=' + Date.now());
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    data = await res.json();
+  } catch (e) {
+    console.warn('Failed to load dashboard-data.json:', e);
+    data = FALLBACK;
+    fallback = true;
+  }
+  if (fallback) {
+    document.getElementById('banner').classList.add('visible');
+  }
+  render(data);
+}
+
+init();
+</script>
+</body>
+</html>
