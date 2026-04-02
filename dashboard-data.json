@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-03-31T22:30:00-04:00",
+  "lastUpdated": "2026-04-02T02:30:00-04:00",
   "revenue": {
     "lifetime": 0,
     "salesThisMonth": 0,
@@ -17,8 +17,8 @@
     "followers": 7,
     "impressions7d": 256,
     "engagementRate": 10.8,
-    "tweetsThisWeek": 28,
-    "repliesThisWeek": 11
+    "tweetsThisWeek": 29,
+    "repliesThisWeek": 12
   },
   "priorities": [
     {
@@ -28,12 +28,12 @@
     },
     {
       "title": "Grow Email List",
-      "description": "Free playbook funnel live, need traffic sources",
+      "description": "Free playbook funnel live, need traffic sources. Blog article live with CTA.",
       "status": "in-progress"
     },
     {
       "title": "Build X Presence",
-      "description": "1 post/day + outbound replies, casual voice, no self promo in threads",
+      "description": "Blog launch tweet live, outbound replies 2x/day, article content cadence built",
       "status": "in-progress"
     }
   ],
@@ -41,7 +41,7 @@
     { "metric": "Revenue", "target": "$329", "actual": "$0", "status": "behind" },
     { "metric": "Email Subscribers", "target": "10", "actual": "0", "status": "behind" },
     { "metric": "X Followers", "target": "15", "actual": "7", "status": "behind" },
-    { "metric": "Posts + Replies", "target": "14", "actual": "28", "status": "ahead" }
+    { "metric": "Posts + Replies", "target": "14", "actual": "29", "status": "ahead" }
   ],
   "pendingReview": [
     {
@@ -72,7 +72,7 @@
       "id": "review-004",
       "category": "Operations",
       "title": "Test $47 Purchase Flow",
-      "summary": "End-to-end test of Lemon Squeezy checkout and PDF delivery. Takes ~5 minutes. Confirms paid product works before driving traffic.",
+      "summary": "URGENT: 4th consecutive retro flagging this. 5-minute unblocked task. Confirms paid product works before driving traffic.",
       "filed": "2026-03-30",
       "docLink": null
     },
