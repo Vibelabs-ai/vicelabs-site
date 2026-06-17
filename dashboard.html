@@ -1157,6 +1157,10 @@
         <div id="lessonsLearnedCard"></div>
       </div>
       <div class="card">
+        <div class="card-label">Autonomy Pipeline</div>
+        <div id="autonomyPipelineCard"></div>
+      </div>
+      <div class="card">
         <div class="card-label">Daily Progress</div>
         <div id="dailyProgressCard"></div>
       </div>
@@ -1550,6 +1554,37 @@ function renderLessonsLearnedCard(state) {
   `;
 }
 
+function renderAutonomyPipelineCard(state) {
+  const el = document.getElementById('autonomyPipelineCard');
+  const autonomy = state.autonomy || {};
+  const latestNote = autonomy.latest_note || {};
+  const bundle = autonomy.bundle || {};
+  const validation = autonomy.validation || {};
+
+  if (!autonomy || (!latestNote.path && !bundle.path && !autonomy.summary)) {
+    el.innerHTML = `
+      <div class="summary-block">No autonomy pipeline status file is available yet. Once the note/status contract lands, this panel will show the latest synthesized judgment and validation state.</div>
+      <div class="section-note">Source: <code>03-operations/dashboards/autonomy-pipeline-status.json</code></div>
+    `;
+    return;
+  }
+
+  const meta = [
+    statusPill(autonomy.overall_status || autonomy.status || 'unknown'),
+    latestNote.date ? `<span class="mini-pill info">${escapeHtml(latestNote.date)}</span>` : '',
+    validation.status ? statusPill(validation.status) : '',
+    bundle.status ? `<span class="mini-pill">bundle ${escapeHtml(statusLabel(bundle.status))}</span>` : ''
+  ].filter(Boolean).join('');
+
+  el.innerHTML = `
+    <div class="compact-title">${escapeHtml(latestNote.title || autonomy.title || 'Autonomy pipeline')}</div>
+    <div class="summary-block">${escapeHtml(latestNote.summary || autonomy.summary || 'No autonomy summary is available yet.')}</div>
+    <div class="compact-meta">${meta}</div>
+    ${autonomy.follow_up ? `<div class="section-note" style="margin-top:10px">${escapeHtml(autonomy.follow_up)}</div>` : ''}
+    <span class="source-path">${escapeHtml(latestNote.path || autonomy.path || '03-operations/dashboards/autonomy-pipeline-status.json')} · bundle: ${escapeHtml(bundle.path || '—')}</span>
+  `;
+}
+
 function renderDailyProgressCard(state) {
   const el = document.getElementById('dailyProgressCard');
   const summaries = (state.daily?.summaries || []).slice(0, 3);
@@ -1701,10 +1736,13 @@ function renderOverview(state) {
   const review = (state.pendingReviewCount ?? null);
   const briefing = (state.daily?.summaries || [])[0];
   const briefingStatus = briefing?.status || 'draft';
+  const autonomy = state.autonomy || {};
+  const autonomyLabel = statusLabel(autonomy.overall_status || autonomy.status || 'missing');
 
   el.innerHTML = [
     { label: 'Open actions', value: openActions, hint: 'dashboard-visible' },
     { label: 'Lessons learned', value: lessons, hint: 'latest notes' },
+    { label: 'Autonomy', value: autonomyLabel, hint: 'pipeline' },
     { label: 'Scheduled jobs', value: jobs, hint: 'watchers + cron' },
     { label: 'Review queue', value: review ?? '—', hint: 'pending items' },
     { label: 'Briefing', value: statusLabel(briefingStatus), hint: 'today' }
@@ -1720,6 +1758,7 @@ function renderOperations(state) {
   renderOverview(state);
   renderMorningBriefingCard(state);
   renderLessonsLearnedCard(state);
+  renderAutonomyPipelineCard(state);
   renderDailyProgressCard(state);
   renderOpenActionItemsCard(state);
   renderTopPrioritiesCard(state);
@@ -1766,10 +1805,11 @@ async function loadLatestLessonsMemoryCandidates(lessonsData) {
 }
 
 async function init() {
-  const [dashboardRes, dailyRes, lessonsRes, openActionsRes, topPrioritiesRes, jobsRes, systemRes, clusterRes, routingRes, deployRes] = await Promise.all([
+  const [dashboardRes, dailyRes, lessonsRes, autonomyRes, openActionsRes, topPrioritiesRes, jobsRes, systemRes, clusterRes, routingRes, deployRes] = await Promise.all([
     loadJson('dashboard-data.json', FALLBACK),
     loadJson('../../03-operations/daily/daily-summaries.json', { version: 1, summaries: [] }),
     loadJson('../../03-operations/reports/lessons-learned/index.json', { version: 1, entries: [] }),
+    loadJson('../../03-operations/dashboards/autonomy-pipeline-status.json', { overall_status: 'missing', status: 'missing' }),
     loadJson('../../03-operations/action-tracker/open-action-items.json', { version: 1, items: [] }),
     loadJson('../../03-operations/action-tracker/top-priorities.json', { items: [] }),
     loadJson('../../03-operations/dashboards/scheduled-jobs-status.json', { jobs: [] }),
@@ -1797,6 +1837,7 @@ async function init() {
     lessons: lessonsRes.data || { entries: [] },
     lessonMemoryCandidates: lessonsMemoryCandidatesRes.data || { candidates: [] },
     lessonMemoryCandidatesPath: lessonsMemoryCandidatesRes.path || '',
+    autonomy: autonomyRes.data || { overall_status: 'missing', status: 'missing' },
     openActions: openActionsRes.data || { items: [] },
     topPriorities: topPrioritiesRes.data || { items: [] },
     jobs: jobsRes.data || { jobs: [] },

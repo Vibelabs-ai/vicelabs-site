@@ -1,0 +1,27 @@
+{
+  "schema": "autonomy-pipeline-status/v1",
+  "generated_at": "2026-06-17T07:46:38Z",
+  "overall_status": "ok",
+  "status": "ok",
+  "source": "03-operations/reports/autonomy-pipeline/2026-06-17.md and inputs/2026-06-17.bundle.json",
+  "latest_note": {
+    "date": "2026-06-17",
+    "title": "Autonomy Pipeline — 2026-06-17",
+    "path": "03-operations/reports/autonomy-pipeline/2026-06-17.md",
+    "summary": "The autonomy pipeline should stay bundle-first and validation-heavy; it complements lessons learned rather than duplicating them.",
+    "source_bundle": "03-operations/reports/autonomy-pipeline/inputs/2026-06-17.bundle.json"
+  },
+  "bundle": {
+    "path": "03-operations/reports/autonomy-pipeline/inputs/2026-06-17.bundle.json",
+    "status": "ready"
+  },
+  "validation": {
+    "path": "~/.hermes/scripts/autonomy_pipeline_validate.py",
+    "status": "ok",
+    "checks": [
+      "bundle contract validated",
+      "note artifact validated"
+    ]
+  },
+  "follow_up": "Keep the autonomy note alongside the lessons-learned index; use it to surface compounding process changes without duplicating the daily journal."
+}
