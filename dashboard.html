@@ -1520,6 +1520,9 @@ function renderLessonsLearnedCard(state) {
     : '';
 
   const memoryCandidates = Array.isArray(state.lessonMemoryCandidates?.candidates) ? state.lessonMemoryCandidates.candidates : [];
+  const memoryArtifactLabel = state.lessonMemoryCandidatesPath
+    ? state.lessonMemoryCandidatesPath.split('/').pop()
+    : 'memory-candidates.json';
   const memoryCandidatesHtml = memoryCandidates.length
     ? `<ul class="compact-list">${memoryCandidates.slice(0, 3).map(candidate => {
         const fact = typeof candidate === 'string' ? candidate : candidate.fact || candidate.text || 'memory candidate';
@@ -1531,8 +1534,8 @@ function renderLessonsLearnedCard(state) {
           </li>`;
       }).join('')}</ul>`
     : (state.lessonMemoryCandidates
-      ? `<div class="section-note">No memory candidates were staged for this lesson.</div>`
-      : `<div class="section-note">Memory candidates artifact is missing for this lesson.</div>`);
+      ? `<div class="section-note">No memory candidates were staged in <code>${escapeHtml(memoryArtifactLabel)}</code>.</div>`
+      : `<div class="section-note">Memory candidates artifact <code>${escapeHtml(memoryArtifactLabel)}</code> is missing for this lesson.</div>`);
 
   el.innerHTML = `
     <div class="compact-title">${escapeHtml(latest.title || latest.date || 'Latest lesson')}</div>
@@ -1543,7 +1546,7 @@ function renderLessonsLearnedCard(state) {
     </div>
     ${memoryCandidatesHtml}
     ${followUpsHtml}
-    <span class="source-path">${escapeHtml(latest.path || latest.source || '03-operations/reports/lessons-learned/')} · memory: ${escapeHtml(state.lessonMemoryCandidatesPath || '—')}</span>
+    <span class="source-path">${escapeHtml(latest.path || latest.source || '03-operations/reports/lessons-learned/')} · memory artifact: ${escapeHtml(state.lessonMemoryCandidatesPath || '—')}</span>
   `;
 }
 
