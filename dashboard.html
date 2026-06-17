@@ -1227,10 +1227,19 @@ function fmtMoney(n) {
 }
 
 function render(data) {
-  // Last updated
-  const d = new Date(data.lastUpdated);
-  const opts = { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true, timeZoneName: 'short' };
-  document.getElementById('lastUpdated').textContent = d.toLocaleString('en-US', opts);
+  // Last updated: always show the current Eastern time on the live dashboard
+  // so the page reflects when it was actually viewed, not a stale data snapshot.
+  const d = new Date();
+  const opts = {
+    month: 'short',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true,
+    timeZone: 'America/New_York',
+    timeZoneName: 'short'
+  };
+  document.getElementById('lastUpdated').textContent = 'Updated on ' + d.toLocaleString('en-US', opts);
 
   // Revenue
   const rev = data.revenue;
@@ -1510,6 +1519,21 @@ function renderLessonsLearnedCard(state) {
     ? `<div class="compact-meta">${followUps.slice(0, 4).map(f => `<span class="mini-pill">${escapeHtml(typeof f === 'string' ? f : f.title || f.id || 'follow-up')}</span>`).join('')}</div>`
     : '';
 
+  const memoryCandidates = Array.isArray(state.lessonMemoryCandidates?.candidates) ? state.lessonMemoryCandidates.candidates : [];
+  const memoryCandidatesHtml = memoryCandidates.length
+    ? `<ul class="compact-list">${memoryCandidates.slice(0, 3).map(candidate => {
+        const fact = typeof candidate === 'string' ? candidate : candidate.fact || candidate.text || 'memory candidate';
+        const why = typeof candidate === 'object' ? (candidate.why_it_matters || candidate.reason || candidate.evidence?.[0] || '') : '';
+        return `
+          <li class="compact-item">
+            <div class="compact-title">${escapeHtml(fact)}</div>
+            ${why ? `<div class="compact-sub">${escapeHtml(shortText(why))}</div>` : ''}
+          </li>`;
+      }).join('')}</ul>`
+    : (state.lessonMemoryCandidates
+      ? `<div class="section-note">No memory candidates were staged for this lesson.</div>`
+      : `<div class="section-note">Memory candidates artifact is missing for this lesson.</div>`);
+
   el.innerHTML = `
     <div class="compact-title">${escapeHtml(latest.title || latest.date || 'Latest lesson')}</div>
     <div class="summary-block">${escapeHtml(latest.summary || latest.executive_snapshot || latest.what_we_learned || latest.note || 'No summary field found on the latest lesson entry yet.')}</div>
@@ -1517,8 +1541,9 @@ function renderLessonsLearnedCard(state) {
       ${latest.date ? `<span class="mini-pill info">${escapeHtml(latest.date)}</span>` : ''}
       ${statusPill(latest.status || 'recorded')}
     </div>
+    ${memoryCandidatesHtml}
     ${followUpsHtml}
-    <span class="source-path">${escapeHtml(latest.path || latest.source || '03-operations/reports/lessons-learned/')}</span>
+    <span class="source-path">${escapeHtml(latest.path || latest.source || '03-operations/reports/lessons-learned/')} · memory: ${escapeHtml(state.lessonMemoryCandidatesPath || '—')}</span>
   `;
 }
 
@@ -1718,6 +1743,25 @@ async function loadJson(path, fallback) {
   }
 }
 
+async function loadLatestLessonsMemoryCandidates(lessonsData) {
+  const entries = lessonsData?.entries || [];
+  const latest = entries[0];
+  if (!latest) {
+    return { ok: false, data: null, path: '' };
+  }
+
+  const basePath = latest.path || (latest.date ? `03-operations/reports/lessons-learned/${latest.date}.md` : '');
+  const candidatePath = basePath
+    ? `../../${basePath.replace(/\.md$/i, '.memory-candidates.json')}`
+    : '';
+
+  if (!candidatePath) {
+    return { ok: false, data: null, path: '' };
+  }
+
+  return loadJson(candidatePath, null);
+}
+
 async function init() {
   const [dashboardRes, dailyRes, lessonsRes, openActionsRes, topPrioritiesRes, jobsRes, systemRes, clusterRes, routingRes, deployRes] = await Promise.all([
     loadJson('dashboard-data.json', FALLBACK),
@@ -1731,6 +1775,7 @@ async function init() {
     loadJson('../../03-operations/dashboards/model-routing-status.json', { tiers: {} }),
     loadJson('../../03-operations/dashboards/site-deploy-status.json', { verification: {} })
   ]);
+  const lessonsMemoryCandidatesRes = await loadLatestLessonsMemoryCandidates(lessonsRes.data || { entries: [] });
 
   const data = dashboardRes.data || FALLBACK;
   const fallback = !dashboardRes.ok;
@@ -1747,6 +1792,8 @@ async function init() {
   renderOperations({
     daily: dailyRes.data || { summaries: [] },
     lessons: lessonsRes.data || { entries: [] },
+    lessonMemoryCandidates: lessonsMemoryCandidatesRes.data || { candidates: [] },
+    lessonMemoryCandidatesPath: lessonsMemoryCandidatesRes.path || '',
     openActions: openActionsRes.data || { items: [] },
     topPriorities: topPrioritiesRes.data || { items: [] },
     jobs: jobsRes.data || { jobs: [] },

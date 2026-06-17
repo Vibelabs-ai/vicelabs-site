@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "source_of_truth": "03-operations/reports/lessons-learned/index.json",
+  "human_readme": "03-operations/reports/lessons-learned/README.md",
+  "last_updated": "2026-06-16",
+  "entries": [
+    {
+      "date": "2026-06-16",
+      "title": "Lessons Learned — 2026-06-16",
+      "path": "03-operations/reports/lessons-learned/2026-06-16.md",
+      "summary": "Keep memory compact, keep daily summaries as audit trails, and use lessons-learned notes plus the action tracker for durable improvements.",
+      "related_tracker_items": [
+        "AI-DASH-006"
+      ]
+    }
+  ]
+}
