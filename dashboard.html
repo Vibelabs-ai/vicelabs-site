@@ -1736,7 +1736,7 @@ function renderOverview(state) {
   const review = (state.pendingReviewCount ?? null);
   const briefing = (state.daily?.summaries || [])[0];
   const briefingStatus = briefing?.status || 'draft';
-  const autonomy = state.autonomy || {};
+  const autonomy = state.autonomyPipeline || {};
   const autonomyLabel = statusLabel(autonomy.overall_status || autonomy.status || 'missing');
 
   el.innerHTML = [
