@@ -18,56 +18,57 @@
     --indigo-faint:  rgba(99,102,241,0.10);
     --indigo-subtle: rgba(99,102,241,0.20);
 
-    /* Dashboard surfaces — intentionally dark (ops context) */
-    --bg:            #09090F;
-    --bg-card:       #111118;
-    --bg-card-hover: #18181F;
-    --bg-elevated:   #1C1C26;
+    /* Surfaces — aligned to main site */
+    --bg:            #FFFFFF;
+    --bg-soft:       #F8F8FC;
+    --bg-card:       #FFFFFF;
+    --bg-card-hover: #F8F8FC;
+    --bg-elevated:   #FFFFFF;
 
     /* Borders */
-    --border:        #1E1E2A;
-    --border-light:  #26263A;
+    --border:        #E5E5EF;
+    --border-light:  #DADAEA;
 
     /* Text */
-    --text:          #F0F0F8;
-    --text-muted:    #9090A8;
-    --text-dim:      #5A5A72;
+    --text:          #1A1A1A;
+    --text-muted:    #4A4A5A;
+    --text-dim:      #6B6B80;
 
     /* Status colors */
-    --green:         #22C55E;
-    --green-faint:   rgba(34,197,94,0.10);
-    --red:           #EF4444;
-    --red-faint:     rgba(239,68,68,0.10);
-    --amber:         #F59E0B;
-    --amber-faint:   rgba(245,158,11,0.10);
+    --green:         #059669;
+    --green-faint:   rgba(5,150,105,0.10);
+    --red:           #DC2626;
+    --red-faint:     rgba(220,38,38,0.10);
+    --amber:         #D97706;
+    --amber-faint:   rgba(217,119,6,0.10);
 
     /* Layout */
     --max-width:     1200px;
     --radius-sm:     6px;
-    --radius-md:     10px;
-    --radius-lg:     14px;
+    --radius-md:     12px;
+    --radius-lg:     18px;
   }
 
   html { scroll-behavior: smooth; }
 
   body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
+    background: var(--bg-soft);
     color: var(--text);
     line-height: 1.6;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Subtle grid overlay */
+  /* Soft grid overlay */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     background-image:
-      linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
-    background-size: 52px 52px;
+      linear-gradient(rgba(99,102,241,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(99,102,241,0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
     pointer-events: none;
     z-index: 0;
   }
@@ -77,7 +78,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
-    background: rgba(9,9,15,0.88);
+    background: rgba(255,255,255,0.92);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--border);
@@ -207,27 +208,68 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-bottom: 40px;
+    margin-bottom: 26px;
     gap: 20px;
     flex-wrap: wrap;
   }
 
   .page-header-left h1 {
-    font-size: 1.6rem;
+    font-size: 1.75rem;
     font-weight: 800;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.04em;
     color: var(--text);
     line-height: 1.1;
     margin-bottom: 6px;
   }
 
   .page-header-left p {
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+  }
+
+  .page-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+  .overview-strip {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    max-width: 620px;
+  }
+
+  .metric-chip {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 11px 13px;
+    min-width: 118px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(255,255,255,0.95);
+    box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+  }
+
+  .metric-chip strong {
+    font-size: 1rem;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .metric-chip span {
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--text-dim);
   }
 
   .last-updated {
-    font-size: 0.78rem;
+    font-size: 0.8rem;
     color: var(--text-dim);
     text-align: right;
     line-height: 1.5;
@@ -235,12 +277,12 @@
 
   /* ==================== BANNER ==================== */
   .banner {
-    background: var(--amber-faint);
-    border: 1px solid rgba(245,158,11,0.2);
+    background: #FFF7ED;
+    border: 1px solid rgba(217,119,6,0.16);
     border-radius: var(--radius-md);
     padding: 10px 16px;
     font-size: 0.82rem;
-    color: var(--amber);
+    color: #A16207;
     margin-bottom: 28px;
     display: none;
   }
@@ -258,10 +300,13 @@
     margin-top: 40px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
   }
 
   .section-title:first-of-type { margin-top: 0; }
+  .section-title .section-title-left { display: inline-flex; align-items: center; gap: 8px; }
+  .section-title .section-title-right { font-size: 0.62rem; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; }
 
   /* ==================== GRID ==================== */
   .grid { display: grid; gap: 14px; }
@@ -286,19 +331,21 @@
 
   /* ==================== CARDS ==================== */
   .card {
-    background: var(--bg-card);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 22px 20px;
-    transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    box-shadow: 0 10px 28px rgba(15,23,42,0.04);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
     opacity: 0;
     transform: translateY(10px);
     animation: card-in 0.45s ease forwards;
   }
 
   .card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-light);
+    background: #FFFFFF;
+    border-color: #DADAEA;
+    box-shadow: 0 14px 30px rgba(15,23,42,0.06);
     transform: translateY(-1px);
   }
 
@@ -341,12 +388,12 @@
 
   /* Hero revenue card */
   .card.hero-card {
-    background: linear-gradient(135deg, rgba(34,197,94,0.06) 0%, var(--bg-card) 60%);
-    border-color: rgba(34,197,94,0.15);
+    background: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, #FFFFFF 60%);
+    border-color: rgba(99,102,241,0.18);
   }
   .card.hero-card:hover {
-    border-color: rgba(34,197,94,0.28);
-    background: linear-gradient(135deg, rgba(34,197,94,0.09) 0%, var(--bg-card-hover) 60%);
+    border-color: rgba(99,102,241,0.28);
+    background: linear-gradient(135deg, rgba(99,102,241,0.10) 0%, #FFFFFF 60%);
   }
   .card.hero-card .card-value { font-size: 2.4rem; }
 
@@ -355,7 +402,7 @@
 
   .progress-bar-bg {
     height: 5px;
-    background: rgba(255,255,255,0.05);
+    background: #EDEDF6;
     border-radius: 3px;
     overflow: hidden;
   }
@@ -386,11 +433,12 @@
     align-items: flex-start;
     gap: 14px;
     padding: 16px 18px;
-    background: var(--bg-card);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-md);
     margin-bottom: 10px;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 8px 20px rgba(15,23,42,0.03);
     opacity: 0;
     transform: translateY(8px);
     animation: card-in 0.45s ease forwards;
@@ -401,8 +449,9 @@
   .priority-item:nth-child(3) { animation-delay: 0.18s; }
 
   .priority-item:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-light);
+    background: #FFFFFF;
+    border-color: #DADAEA;
+    box-shadow: 0 10px 24px rgba(15,23,42,0.05);
   }
 
   .priority-icon {
@@ -444,10 +493,11 @@
 
   /* ==================== TABLE ==================== */
   .table-wrap {
-    background: var(--bg-card);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     overflow: hidden;
+    box-shadow: 0 10px 28px rgba(15,23,42,0.04);
     opacity: 0;
     transform: translateY(10px);
     animation: card-in 0.45s ease 0.12s forwards;
@@ -477,7 +527,7 @@
   }
 
   tbody tr:last-child td { border-bottom: none; }
-  tbody tr:hover { background: var(--bg-card-hover); }
+  tbody tr:hover { background: #F8F8FC; }
 
   .status-pill {
     font-size: 0.68rem;
@@ -494,11 +544,12 @@
 
   /* ==================== OUTLOOK ==================== */
   .outlook-card {
-    background: var(--bg-card);
+    background: #FFFFFF;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 22px 20px;
-    transition: background 0.2s, border-color 0.2s;
+    box-shadow: 0 10px 28px rgba(15,23,42,0.04);
+    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     opacity: 0;
     transform: translateY(10px);
     animation: card-in 0.45s ease forwards;
@@ -706,6 +757,108 @@
     font-size: 0.88rem;
   }
 
+  .review-link {
+    color: var(--indigo-light);
+    text-decoration: none;
+  }
+
+  .review-link:hover { text-decoration: underline; }
+
+  /* ==================== COMPACT OPERATIONAL CARDS ==================== */
+  .compact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 2px;
+  }
+
+  .compact-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.015);
+    padding: 11px 12px;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .compact-item:hover {
+    background: var(--bg-card-hover);
+    border-color: var(--border-light);
+  }
+
+  .compact-title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+
+  .compact-sub {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  .compact-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 7px;
+  }
+
+  .mini-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.65rem;
+    line-height: 1;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 4px 8px;
+    letter-spacing: 0.02em;
+    background: var(--bg-card-hover);
+    color: var(--text-muted);
+  }
+
+  .mini-pill.ok { background: var(--green-faint); color: var(--green); }
+  .mini-pill.warn { background: var(--amber-faint); color: var(--amber); }
+  .mini-pill.bad { background: var(--red-faint); color: var(--red); }
+  .mini-pill.info { background: rgba(99,102,241,0.14); color: var(--indigo-light); }
+
+  .section-note {
+    font-size: 0.76rem;
+    color: var(--text-dim);
+    line-height: 1.45;
+    margin-top: 8px;
+  }
+
+  .source-path {
+    display: block;
+    margin-top: 7px;
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    word-break: break-word;
+  }
+
+  .summary-block {
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .empty-state {
+    border: 1px dashed rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.015);
+    border-radius: 14px;
+    padding: 16px 14px;
+    color: var(--text-dim);
+    font-size: 0.82rem;
+    line-height: 1.55;
+  }
+
+  .empty-state strong { color: var(--text); }
+
   /* ==================== MODAL ==================== */
   .modal-overlay {
     display: none;
@@ -857,6 +1010,10 @@
         <h1>CEO Dashboard</h1>
         <p>Real-time operations view · Jose only</p>
       </div>
+      <div class="page-header-right">
+        <div class="overview-strip" id="dashboardOverview"></div>
+        <div class="last-updated">Updated <span id="lastUpdated">Loading...</span></div>
+      </div>
     </div>
 
     <!-- Data unavailable banner -->
@@ -984,6 +1141,54 @@
       <span class="review-count" id="reviewCount">0</span>
     </div>
     <div id="pendingReview"></div>
+
+    <!-- Operations Console -->
+    <div class="section-title">
+      <span class="section-title-left">Operations Console</span>
+      <span class="section-title-right">Live cards · tracker + health sources</span>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <div class="card-label">Morning Briefing</div>
+        <div id="morningBriefingCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Daily Lessons Learned</div>
+        <div id="lessonsLearnedCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Daily Progress</div>
+        <div id="dailyProgressCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Open Action Items</div>
+        <div id="openActionItemsCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Top Priorities</div>
+        <div id="topPrioritiesCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Scheduled Jobs</div>
+        <div id="scheduledJobsCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">System Health</div>
+        <div id="systemHealthCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Cluster Health</div>
+        <div id="clusterHealthCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Model Routing</div>
+        <div id="modelRoutingCard"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Site / Deploy State</div>
+        <div id="siteDeployCard"></div>
+      </div>
+    </div>
 
   </div><!-- /page -->
 
@@ -1206,25 +1411,351 @@ function showToast(msg, type) {
   setTimeout(() => { toast.className = 'toast'; }, 3000);
 }
 
+function escapeHtml(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function normalizeStatus(value) {
+  return String(value || '').toLowerCase().replace(/_/g, '-');
+}
+
+function statusLabel(value) {
+  return String(value || 'unknown').replace(/_/g, ' ').replace(/-/g, ' ');
+}
+
+function statusPill(status) {
+  const cls = normalizeStatus(status);
+  let pillClass = 'info';
+  if (cls === 'ok' || cls === 'done' || cls === 'healthy' || cls === 'loaded' || cls === 'published') pillClass = 'ok';
+  else if (cls === 'warn' || cls === 'warning' || cls === 'open' || cls === 'scheduled' || cls === 'running' || cls === 'in-progress') pillClass = 'warn';
+  else if (cls === 'bad' || cls === 'blocked' || cls === 'failed' || cls === 'error' || cls === 'offline' || cls === 'deferred') pillClass = 'bad';
+  return `<span class="mini-pill ${pillClass}">${escapeHtml(statusLabel(status))}</span>`;
+}
+
+function firstLine(value) {
+  return String(value ?? '').split(/\r?\n/).find(Boolean) || '';
+}
+
+function shortText(value, max = 220) {
+  const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+  return text.length > max ? text.slice(0, max - 1) + '…' : text;
+}
+
+function listHtml(items, renderItem, emptyMessage) {
+  if (!items || items.length === 0) {
+    return `<div class="empty-state">${escapeHtml(emptyMessage)}</div>`;
+  }
+  return `<ul class="compact-list">${items.map(renderItem).join('')}</ul>`;
+}
+
+function parseJsonish(value) {
+  if (typeof value !== 'string') return value;
+  const trimmed = value.trim();
+  if (!(trimmed.startsWith('{') || trimmed.startsWith('['))) return value;
+  try { return JSON.parse(trimmed); } catch { return value; }
+}
+
+function formatClock(value) {
+  if (!value) return '—';
+  const d = new Date(value);
+  if (Number.isNaN(d.getTime())) return String(value);
+  return d.toLocaleString('en-US', {
+    month: 'short', day: 'numeric',
+    hour: 'numeric', minute: '2-digit',
+    hour12: true, timeZoneName: 'short'
+  });
+}
+
+function renderMorningBriefingCard(state) {
+  const el = document.getElementById('morningBriefingCard');
+  const latest = (state.daily?.summaries || [])[0];
+  const job = (state.jobs?.jobs || []).find(j => /morning daily briefing/i.test(j.name)) || (state.jobs?.jobs || [])[0];
+
+  const highlights = (latest?.related_tracker_items || []).slice(0, 3).map(item =>
+    `<span class="mini-pill info">${escapeHtml(item.id)} · ${escapeHtml(item.status || 'open')}</span>`
+  ).join('');
+
+  el.innerHTML = `
+    <div class="summary-block">${escapeHtml(latest?.executive_snapshot || 'No daily operational summary is available yet. When the daily summary loop writes its first note, the briefing panel will surface it here.')}</div>
+    <div class="compact-meta">
+      ${statusPill(latest?.status || 'draft')}
+      ${latest ? `<span class="mini-pill">${escapeHtml(latest.date || '')}</span>` : ''}
+      ${latest ? `<span class="mini-pill">${escapeHtml(String(latest.completed_count || 0))} completed</span>` : ''}
+      ${latest ? `<span class="mini-pill">${escapeHtml(String(latest.blocker_count || 0))} blockers</span>` : ''}
+    </div>
+    ${highlights ? `<div class="compact-meta" style="margin-top:10px">${highlights}</div>` : ''}
+    <span class="source-path">Next briefing: ${escapeHtml(formatClock(job?.next_run_at || job?.last_run_at || ''))}${job?.name ? ' · ' + escapeHtml(job.name) : ''}</span>
+  `;
+}
+
+function renderLessonsLearnedCard(state) {
+  const el = document.getElementById('lessonsLearnedCard');
+  const entries = state.lessons?.entries || [];
+  if (!entries.length) {
+    el.innerHTML = `
+      <div class="summary-block">No lessons-learned notes have been written yet. The daily loop will populate this panel once the first markdown note lands.</div>
+      <div class="section-note">Source: <code>03-operations/reports/lessons-learned/index.json</code></div>
+    `;
+    return;
+  }
+
+  const latest = entries[0];
+  const followUps = latest.followups || latest.follow_ups || latest.followUps || [];
+  const followUpsHtml = Array.isArray(followUps) && followUps.length
+    ? `<div class="compact-meta">${followUps.slice(0, 4).map(f => `<span class="mini-pill">${escapeHtml(typeof f === 'string' ? f : f.title || f.id || 'follow-up')}</span>`).join('')}</div>`
+    : '';
+
+  el.innerHTML = `
+    <div class="compact-title">${escapeHtml(latest.title || latest.date || 'Latest lesson')}</div>
+    <div class="summary-block">${escapeHtml(latest.summary || latest.executive_snapshot || latest.what_we_learned || latest.note || 'No summary field found on the latest lesson entry yet.')}</div>
+    <div class="compact-meta">
+      ${latest.date ? `<span class="mini-pill info">${escapeHtml(latest.date)}</span>` : ''}
+      ${statusPill(latest.status || 'recorded')}
+    </div>
+    ${followUpsHtml}
+    <span class="source-path">${escapeHtml(latest.path || latest.source || '03-operations/reports/lessons-learned/')}</span>
+  `;
+}
+
+function renderDailyProgressCard(state) {
+  const el = document.getElementById('dailyProgressCard');
+  const summaries = (state.daily?.summaries || []).slice(0, 3);
+  el.innerHTML = listHtml(summaries, summary => {
+    const related = (summary.related_tracker_items || []).slice(0, 3);
+    const relatedHtml = related.length
+      ? `<div class="compact-meta">${related.map(item => `<span class="mini-pill">${escapeHtml(item.id)}</span>`).join('')}</div>`
+      : '';
+    return `
+      <li class="compact-item">
+        <div class="compact-title">${escapeHtml(summary.title || summary.date || 'Daily summary')}</div>
+        <div class="compact-sub">${escapeHtml(shortText(summary.executive_snapshot || ''))}</div>
+        <div class="compact-meta">
+          ${summary.date ? `<span class="mini-pill info">${escapeHtml(summary.date)}</span>` : ''}
+          ${statusPill(summary.status || 'final')}
+          <span class="mini-pill">${escapeHtml(String(summary.completed_count || 0))} done</span>
+          <span class="mini-pill">${escapeHtml(String(summary.blocker_count || 0))} blockers</span>
+        </div>
+        ${relatedHtml}
+      </li>`;
+  }, 'No daily summary entries are available yet.');
+}
+
+function renderOpenActionItemsCard(state) {
+  const el = document.getElementById('openActionItemsCard');
+  const items = (state.openActions?.items || [])
+    .filter(item => item.dashboard?.show !== false)
+    .filter(item => normalizeStatus(item.status) !== 'done')
+    .slice(0, 8);
+
+  el.innerHTML = listHtml(items, item => `
+    <li class="compact-item">
+      <div class="compact-title">${escapeHtml(item.id)} · ${escapeHtml(item.title)}</div>
+      <div class="compact-sub">${escapeHtml(shortText(item.summary || item.reason || item.source || ''))}</div>
+      <div class="compact-meta">
+        ${statusPill(item.status)}
+        ${item.priority ? `<span class="mini-pill info">${escapeHtml(item.priority)}</span>` : ''}
+        ${item.category ? `<span class="mini-pill">${escapeHtml(item.category)}</span>` : ''}
+        ${item.owner ? `<span class="mini-pill">${escapeHtml(item.owner)}</span>` : ''}
+      </div>
+    </li>`, 'No dashboard-visible open action items were found.');
+}
+
+function renderTopPrioritiesCard(state) {
+  const el = document.getElementById('topPrioritiesCard');
+  const items = (state.topPriorities?.items || []).slice(0, 5);
+  el.innerHTML = listHtml(items, item => `
+    <li class="compact-item">
+      <div class="compact-title">#${escapeHtml(String(item.rank || '?'))} · ${escapeHtml(item.title)}</div>
+      <div class="compact-sub">${escapeHtml(item.reason || item.source || '')}</div>
+      <div class="compact-meta">
+        ${statusPill(item.status || 'open')}
+        ${item.owner ? `<span class="mini-pill info">${escapeHtml(item.owner)}</span>` : ''}
+        ${item.category ? `<span class="mini-pill">${escapeHtml(item.category)}</span>` : ''}
+      </div>
+    </li>`, 'No top-priority shortlist is available yet.');
+}
+
+function renderScheduledJobsCard(state) {
+  const el = document.getElementById('scheduledJobsCard');
+  const jobs = state.jobs?.jobs || [];
+  el.innerHTML = listHtml(jobs, job => `
+    <li class="compact-item">
+      <div class="compact-title">${escapeHtml(job.name || job.job_id || 'Scheduled job')}</div>
+      <div class="compact-sub">Schedule: ${escapeHtml(job.schedule || '—')} · Next: ${escapeHtml(formatClock(job.next_run_at))}</div>
+      <div class="compact-meta">
+        ${statusPill(job.last_status || job.state || (job.enabled ? 'scheduled' : 'disabled'))}
+        ${job.enabled ? `<span class="mini-pill ok">enabled</span>` : `<span class="mini-pill bad">disabled</span>`}
+        ${job.job_id ? `<span class="mini-pill info">${escapeHtml(job.job_id)}</span>` : ''}
+      </div>
+    </li>`, 'No scheduled job status file was found.');
+}
+
+function renderSystemHealthCard(state) {
+  const el = document.getElementById('systemHealthCard');
+  const checks = Object.entries(state.system?.checks || {});
+  el.innerHTML = listHtml(checks, ([name, check]) => {
+    const output = shortText(firstLine(check?.output || ''), 120);
+    const status = (check?.exit_code === 0) ? 'ok' : 'error';
+    return `
+      <li class="compact-item">
+        <div class="compact-title">${escapeHtml(name)}</div>
+        <div class="compact-sub">${escapeHtml(output || 'No output captured.')}</div>
+        <div class="compact-meta">
+          ${statusPill(status)}
+          <span class="mini-pill">exit ${escapeHtml(String(check?.exit_code ?? '—'))}</span>
+        </div>
+      </li>`;
+  }, 'No system-health status file was found.');
+}
+
+function renderClusterHealthCard(state) {
+  const el = document.getElementById('clusterHealthCard');
+  const checks = Object.entries(state.cluster?.checks || {});
+  const tiers = Object.entries(state.cluster?.loaded_tiers || {});
+  const checkHtml = checks.length
+    ? `<ul class="compact-list">${checks.map(([name, check]) => {
+        const parsed = parseJsonish(check?.output);
+        const summary = typeof parsed === 'object' ? JSON.stringify(parsed) : shortText(firstLine(check?.output || ''), 120);
+        return `<li class="compact-item"><div class="compact-title">${escapeHtml(name)}</div><div class="compact-sub">${escapeHtml(summary)}</div><div class="compact-meta">${statusPill(check?.exit_code === 0 ? 'ok' : 'error')}</div></li>`;
+      }).join('')}</ul>`
+    : '<div class="section-note">No cluster checks available.</div>';
+  const tierHtml = tiers.length
+    ? `<div class="compact-meta" style="margin-top:10px">${tiers.map(([tier, info]) => `<span class="mini-pill ${info.loaded ? 'ok' : 'warn'}">${escapeHtml(tier)} · ${escapeHtml(info.model_id || '—')}</span>`).join('')}</div>`
+    : '';
+  el.innerHTML = `
+    <div class="compact-meta">${statusPill(state.cluster?.overall_status || 'unknown')}</div>
+    ${checkHtml}
+    ${tierHtml}
+  `;
+}
+
+function renderModelRoutingCard(state) {
+  const el = document.getElementById('modelRoutingCard');
+  const tiers = Object.entries(state.routing?.tiers || {});
+  el.innerHTML = listHtml(tiers, ([tier, info]) => `
+    <li class="compact-item">
+      <div class="compact-title">${escapeHtml(tier)} · ${escapeHtml(info?.model || '—')}</div>
+      <div class="compact-sub">Latency: ${escapeHtml(String(info?.latency_ms ?? '—'))} ms</div>
+      <div class="compact-meta">
+        ${statusPill(info?.status || 'unknown')}
+        <span class="mini-pill info">${escapeHtml(String(info?.usage?.total_tokens ?? '—'))} tokens</span>
+      </div>
+    </li>`, 'No model-routing status file was found.');
+}
+
+function renderSiteDeployCard(state) {
+  const el = document.getElementById('siteDeployCard');
+  const deploy = state.deploy || {};
+  const verification = deploy.verification || {};
+  const expected = verification.expected_strings_present || [];
+  el.innerHTML = `
+    <div class="compact-title">${escapeHtml(deploy.production_url || '—')}</div>
+    <div class="compact-sub">${escapeHtml(deploy.verification?.browser_title || deploy.source || 'No deploy-status file was found.')}</div>
+    <div class="compact-meta">
+      ${statusPill(deploy.status || deploy.overall_status || 'unknown')}
+      ${deploy.latest_deployment_id ? `<span class="mini-pill info">${escapeHtml(deploy.latest_deployment_id)}</span>` : ''}
+      ${verification.homepage_http_status ? `<span class="mini-pill">HTTP ${escapeHtml(String(verification.homepage_http_status))}</span>` : ''}
+    </div>
+    ${deploy.answerops_url ? `<span class="source-path">AnswerOps: ${escapeHtml(deploy.answerops_url)}</span>` : ''}
+    ${expected.length ? `<div class="compact-meta" style="margin-top:10px">${expected.slice(0, 4).map(s => `<span class="mini-pill ok">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
+  `;
+}
+function renderOverview(state) {
+  const el = document.getElementById('dashboardOverview');
+  const openActions = (state.openActions?.items || []).filter(item => item.dashboard?.show !== false && normalizeStatus(item.status) !== 'done').length;
+  const lessons = (state.lessons?.entries || []).length;
+  const jobs = (state.jobs?.jobs || []).length;
+  const review = (state.pendingReviewCount ?? null);
+  const briefing = (state.daily?.summaries || [])[0];
+  const briefingStatus = briefing?.status || 'draft';
+
+  el.innerHTML = [
+    { label: 'Open actions', value: openActions, hint: 'dashboard-visible' },
+    { label: 'Lessons learned', value: lessons, hint: 'latest notes' },
+    { label: 'Scheduled jobs', value: jobs, hint: 'watchers + cron' },
+    { label: 'Review queue', value: review ?? '—', hint: 'pending items' },
+    { label: 'Briefing', value: statusLabel(briefingStatus), hint: 'today' }
+  ].map(item => `
+    <div class="metric-chip">
+      <strong>${escapeHtml(String(item.value))}</strong>
+      <span>${escapeHtml(item.label)} · ${escapeHtml(item.hint)}</span>
+    </div>
+  `).join('');
+}
+
+function renderOperations(state) {
+  renderOverview(state);
+  renderMorningBriefingCard(state);
+  renderLessonsLearnedCard(state);
+  renderDailyProgressCard(state);
+  renderOpenActionItemsCard(state);
+  renderTopPrioritiesCard(state);
+  renderScheduledJobsCard(state);
+  renderSystemHealthCard(state);
+  renderClusterHealthCard(state);
+  renderModelRoutingCard(state);
+  renderSiteDeployCard(state);
+}
+
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 document.getElementById('feedbackModal').addEventListener('click', e => {
   if (e.target === document.getElementById('feedbackModal')) closeModal();
 });
 
-async function init() {
-  let data;
-  let fallback = false;
+async function loadJson(path, fallback) {
   try {
-    const res = await fetch('dashboard-data.json?t=' + Date.now());
+    const res = await fetch(path + '?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    data = await res.json();
+    return { ok: true, data: await res.json() };
   } catch (e) {
-    console.warn('Failed to load dashboard-data.json:', e);
-    data = FALLBACK;
-    fallback = true;
+    console.warn('Failed to load ' + path + ':', e);
+    return { ok: false, data: fallback };
   }
+}
+
+async function init() {
+  const [dashboardRes, dailyRes, lessonsRes, openActionsRes, topPrioritiesRes, jobsRes, systemRes, clusterRes, routingRes, deployRes] = await Promise.all([
+    loadJson('dashboard-data.json', FALLBACK),
+    loadJson('../../03-operations/daily/daily-summaries.json', { version: 1, summaries: [] }),
+    loadJson('../../03-operations/reports/lessons-learned/index.json', { version: 1, entries: [] }),
+    loadJson('../../03-operations/action-tracker/open-action-items.json', { version: 1, items: [] }),
+    loadJson('../../03-operations/action-tracker/top-priorities.json', { items: [] }),
+    loadJson('../../03-operations/dashboards/scheduled-jobs-status.json', { jobs: [] }),
+    loadJson('../../03-operations/dashboards/system-health-status.json', { checks: {} }),
+    loadJson('../../03-operations/dashboards/cluster-health-status.json', { checks: {}, loaded_tiers: {} }),
+    loadJson('../../03-operations/dashboards/model-routing-status.json', { tiers: {} }),
+    loadJson('../../03-operations/dashboards/site-deploy-status.json', { verification: {} })
+  ]);
+
+  const data = dashboardRes.data || FALLBACK;
+  const fallback = !dashboardRes.ok;
   if (fallback) document.getElementById('banner').classList.add('visible');
+
+  const topPriorityItems = (topPrioritiesRes.data?.items || []).slice(0, 5);
+  data.priorities = topPriorityItems.map(item => ({
+    title: `${item.rank ? '#' + item.rank + ' ' : ''}${item.title}`,
+    description: item.reason || item.source || item.owner || '',
+    status: normalizeStatus(item.status) === 'done' ? 'done' : 'in-progress'
+  }));
+
   render(data);
+  renderOperations({
+    daily: dailyRes.data || { summaries: [] },
+    lessons: lessonsRes.data || { entries: [] },
+    openActions: openActionsRes.data || { items: [] },
+    topPriorities: topPrioritiesRes.data || { items: [] },
+    jobs: jobsRes.data || { jobs: [] },
+    system: systemRes.data || { checks: {} },
+    cluster: clusterRes.data || { checks: {}, loaded_tiers: {} },
+    routing: routingRes.data || { tiers: {} },
+    deploy: deployRes.data || { verification: {} },
+    pendingReviewCount: (data.pendingReview || []).length
+  });
 }
 
 init();
