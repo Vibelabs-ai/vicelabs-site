@@ -1667,49 +1667,45 @@ function renderAutonomyPipelineCard(state) {
   const latestNote = autonomy.latest_note || {};
   const bundle = autonomy.bundle || {};
   const validation = autonomy.validation || {};
-  const status = autonomy.overall_status || autonomy.status || 'missing';
+  const dashboardSource = state.sources?.dashboard || {};
+  const sourceOk = dashboardSource.ok !== false;
+  const status = sourceOk ? (autonomy.overall_status || autonomy.status || 'missing') : 'source unavailable';
   const tone = (() => {
-    const normalized = normalizeStatus(status);
+    const normalized = normalizeStatus(sourceOk ? status : 'bad');
     return normalized === 'missing' ? 'unknown' : (normalized || 'unknown');
   })();
   const title = latestNote.title || autonomy.title || 'Autonomy pipeline';
-  const summary = latestNote.summary || autonomy.summary || 'No autonomy summary is available yet.';
-  const followUp = autonomy.follow_up || 'Keep the autonomy summary visible on the dashboard; inspect the raw artifacts locally only when debugging the pipeline.';
+  const summary = sourceOk
+    ? (latestNote.summary || autonomy.summary || 'No autonomy summary is available yet.')
+    : `The dashboard data source failed to load${dashboardSource.error ? ` (${dashboardSource.error})` : ''}.`;
+  const followUp = sourceOk
+    ? (autonomy.follow_up || 'Keep the autonomy summary visible on the dashboard; inspect the raw artifacts locally only when debugging the pipeline.')
+    : 'This card is showing the explicit source failure instead of silently falling back to missing.';
   const badgeRow = [
-    statusPill(status),
+    statusPill(sourceOk ? status : 'bad'),
     latestNote.date ? `<span class="mini-pill info">Updated ${escapeHtml(latestNote.date)}</span>` : '',
-    validation.status ? statusPill(validation.status) : '',
-    bundle.status ? `<span class="mini-pill">bundle ${escapeHtml(statusLabel(bundle.status))}</span>` : ''
+    validation.status && sourceOk ? statusPill(validation.status) : '',
+    bundle.status && sourceOk ? `<span class="mini-pill">bundle ${escapeHtml(statusLabel(bundle.status))}</span>` : '',
+    dashboardSource.source ? `<span class="mini-pill ${sourceOk ? 'ok' : 'bad'}">source ${escapeHtml(sourceOk ? 'loaded' : 'failed')}</span>` : ''
   ].filter(Boolean).join('');
 
-  const body = !autonomy || (!latestNote.summary && !bundle.status && !autonomy.summary)
-    ? `<div class="autonomy-banner is-${escapeHtml(tone)}">
-        <div class="autonomy-banner-header">
-          <div>
-            <div class="autonomy-kicker">Autonomy pipeline</div>
-            <div class="autonomy-banner-title">${escapeHtml(title)}</div>
-            <div class="autonomy-banner-subtitle">Waiting for the synthesized judgment to land.</div>
-          </div>
-          <div class="autonomy-banner-badges">${badgeRow}</div>
+  const sourceLine = sourceOk
+    ? 'source loaded'
+    : 'load failed' + (dashboardSource.error ? ': ' + dashboardSource.error : '');
+  const body = `<div class="autonomy-banner is-${escapeHtml(tone)}">
+      <div class="autonomy-banner-header">
+        <div>
+          <div class="autonomy-kicker">Autonomy pipeline</div>
+          <div class="autonomy-banner-title">${escapeHtml(title)}</div>
+          <div class="autonomy-banner-subtitle">${escapeHtml(sourceOk ? 'Bundle-first, validation-heavy, and surfaced as a first-class process signal.' : 'Dashboard data load problem surfaced explicitly.')}</div>
         </div>
-        <div class="autonomy-banner-copy">${escapeHtml(summary)}</div>
+        <div class="autonomy-banner-badges">${badgeRow}</div>
       </div>
-      <div class="autonomy-callout">The dashboard will switch to a richer signal block once the inline summary and bundle state are populated.</div>
-      <div class="section-note">Source: <code>dashboard-data.json</code></div>`
-    : `<div class="autonomy-banner is-${escapeHtml(tone)}">
-        <div class="autonomy-banner-header">
-          <div>
-            <div class="autonomy-kicker">Autonomy pipeline</div>
-            <div class="autonomy-banner-title">${escapeHtml(title)}</div>
-            <div class="autonomy-banner-subtitle">Bundle-first, validation-heavy, and now promoted as a first-class process signal.</div>
-          </div>
-          <div class="autonomy-banner-badges">${badgeRow}</div>
-        </div>
-        <div class="autonomy-banner-copy">${escapeHtml(summary)}</div>
-      </div>
-      <div class="compact-meta autonomy-meta">${badgeRow}</div>
-      ${followUp ? `<div class="autonomy-callout">${escapeHtml(followUp)}</div>` : ''}
-      <span class="source-path">dashboard-data.json · bundle: ${escapeHtml(bundle.status || '—')}</span>`;
+      <div class="autonomy-banner-copy">${escapeHtml(summary)}</div>
+    </div>
+    <div class="compact-meta autonomy-meta">${badgeRow}</div>
+    ${followUp ? `<div class="autonomy-callout">${escapeHtml(followUp)}</div>` : ''}
+    <span class="source-path">dashboard-data.json · ${escapeHtml(sourceLine)}</span>`;
 
   el.innerHTML = body;
 }
@@ -1865,13 +1861,16 @@ function renderOverview(state) {
   const review = (state.pendingReviewCount ?? null);
   const briefing = (state.daily?.summaries || [])[0];
   const briefingStatus = briefing?.status || 'draft';
+  const dashboardSource = state.sources?.dashboard || {};
   const autonomy = state.autonomyPipeline || {};
-  const autonomyLabel = statusLabel(autonomy.overall_status || autonomy.status || 'missing');
+  const autonomyLabel = dashboardSource.ok === false
+    ? 'source unavailable'
+    : statusLabel(autonomy.overall_status || autonomy.status || 'missing');
 
   el.innerHTML = [
     { label: 'Open actions', value: openActions, hint: 'dashboard-visible' },
     { label: 'Lessons learned', value: lessons, hint: 'latest notes' },
-    { label: 'Autonomy', value: autonomyLabel, hint: 'pipeline' },
+    { label: 'Autonomy', value: autonomyLabel, hint: dashboardSource.ok === false ? 'load failed' : 'pipeline' },
     { label: 'Scheduled jobs', value: jobs, hint: 'watchers + cron' },
     { label: 'Review queue', value: review ?? '—', hint: 'pending items' },
     { label: 'Briefing', value: statusLabel(briefingStatus), hint: 'today' }
@@ -1907,10 +1906,10 @@ async function loadJson(path, fallback) {
   try {
     const res = await fetch(path + '?t=' + Date.now());
     if (!res.ok) throw new Error('HTTP ' + res.status);
-    return { ok: true, data: await res.json() };
+    return { ok: true, data: await res.json(), source: path };
   } catch (e) {
     console.warn('Failed to load ' + path + ':', e);
-    return { ok: false, data: fallback };
+    return { ok: false, data: fallback, error: String(e?.message || e), source: path };
   }
 }
 
@@ -1972,6 +1971,8 @@ async function init() {
     cluster: clusterRes.data || { checks: {}, loaded_tiers: {} },
     routing: routingRes.data || { tiers: {} },
     deploy: deployRes.data || { verification: {} },
+    autonomyPipeline: data.autonomyPipeline || {},
+    sources: { dashboard: dashboardRes },
     pendingReviewCount: (data.pendingReview || []).length
   });
 }
