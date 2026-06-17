@@ -1,5 +1,23 @@
 {
   "lastUpdated": "2026-04-03T22:30:00-04:00",
+  "autonomyPipeline": {
+    "overall_status": "ok",
+    "status": "ok",
+    "title": "Autonomy Pipeline",
+    "summary": "The autonomy pipeline should stay bundle-first and validation-heavy; it complements lessons learned rather than duplicating them.",
+    "latest_note": {
+      "date": "2026-06-17",
+      "title": "Autonomy Pipeline — 2026-06-17",
+      "summary": "Keep the loop bundle-first and validation-heavy; use autonomy for compounding process signals, not as a duplicate daily journal."
+    },
+    "validation": {
+      "status": "ok"
+    },
+    "bundle": {
+      "status": "ready"
+    },
+    "follow_up": "Keep the autonomy summary visible on the dashboard; inspect the raw artifacts locally only when debugging the pipeline."
+  },
   "revenue": {
     "lifetime": 0,
     "salesThisMonth": 0,
